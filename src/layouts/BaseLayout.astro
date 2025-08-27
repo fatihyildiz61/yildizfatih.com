@@ -1,0 +1,238 @@
+---
+import '../styles/global.css';
+import ThemeProvider from '../components/ThemeProvider.astro';
+const { 
+  title = 'Portföy', 
+  description = 'Grafik Tasarımcı Portföyü',
+  image = '/images/profile.jpg',
+  url = Astro.url.href,
+  keywords = 'grafik tasarım, logo tasarımı, kurumsal kimlik, marka tasarımı, portföy, tasarım projeleri, İstanbul tasarımcı, profesyonel tasarım'
+} = Astro.props;
+---
+<html lang="tr" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3b82f6" />
+    <meta name="color-scheme" content="light dark" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Turkish" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="author" content="Fatih Yıldız" />
+    <meta name="copyright" content="Fatih Yıldız" />
+    <meta name="coverage" content="Worldwide" />
+    <meta name="distribution" content="Global" />
+    <meta name="rating" content="General" />
+    <meta name="classification" content="Portfolio Website" />
+    
+    <!-- Enhanced SEO Meta Tags -->
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="slurp" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="msapplication-TileColor" content="#3b82f6" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="geo.region" content="TR-34" />
+    <meta name="geo.placename" content="Istanbul, Turkey" />
+    <meta name="geo.position" content="41.0082;28.9784" />
+    <meta name="ICBM" content="41.0082, 28.9784" />
+    <meta name="DC.title" content={title} />
+    <meta name="DC.description" content={description} />
+    <meta name="DC.creator" content="Fatih Yıldız" />
+    <meta name="DC.language" content="tr" />
+    <meta name="DC.coverage" content="Worldwide" />
+    <meta name="DC.rights" content="Fatih Yıldız" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={url} />
+    
+    <!-- Favicon and Icons -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="mask-icon" href="/safari-pinned-tab.png" color="#3b82f6" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Mobile Meta Tags -->
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Fatih Yıldız Portfolio" />
+    
+    <!-- Enhanced Social Media Meta Tags -->
+    <meta property="og:site_name" content="Fatih Yıldız Portfolio" />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Fatih Yıldız Portfolio" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:secure_url" content={image} />
+    
+    <!-- Enhanced Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@yildizfatih" />
+    <meta name="twitter:creator" content="@yildizfatih" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content="Fatih Yıldız Portfolio" />
+    <meta name="twitter:domain" content="yildizfatih.com" />
+    
+    <!-- Security Meta Tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- SSL Sonrası Optimize Edilmiş CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:; font-src 'self' https: data:; img-src 'self' data: https: blob:; connect-src 'self' https: wss:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    
+         <!-- SSL Güvenlik Ayarları -->
+     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains; preload" />
+     <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()" />
+     
+     <!-- Google Site Verification - Search Console için eklenecek -->
+     <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
+    
+    <!-- Fonts with Performance Optimization -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Google Fonts - Optimized loading -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" as="style">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+    </noscript>
+    
+    <!-- Font Awesome Icons - Performance optimized -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCD1Z7NNPZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-YCD1Z7NNPZ');
+    </script>
+    
+    <!-- ThemeProvider component -->
+    <ThemeProvider />
+    
+    <!-- Prevent flash of unstyled content - Enhanced -->
+    <style is:inline>
+      html { 
+        visibility: hidden; 
+        font-display: swap;
+      }
+      html.theme-loaded { 
+        visibility: visible; 
+      }
+      
+      /* Critical CSS for initial render */
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+      
+      /* Font loading optimization */
+      .font-loaded {
+        font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      }
+    </style>
+    
+    <script is:inline>
+      // Enhanced theme initialization with performance optimizations
+      (function() {
+        try {
+          // Set theme immediately to prevent flash
+          var theme = localStorage.getItem('theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.classList.toggle('dark', theme === 'dark');
+          
+          // Add font loading detection
+          if ('fonts' in document) {
+            Promise.all([
+              document.fonts.load('400 1em Inter'),
+              document.fonts.load('500 1em Inter'),
+              document.fonts.load('600 1em Inter'),
+              document.fonts.load('700 1em Inter')
+            ]).then(function() {
+              document.documentElement.classList.add('font-loaded');
+            });
+          }
+          
+          // Show content after theme and fonts are ready
+          document.documentElement.classList.add('theme-loaded');
+        } catch (_) {
+          // Fallback: show content immediately if there's an error
+          document.documentElement.classList.add('theme-loaded');
+        }
+      })();
+    </script>
+  </head>
+  <body class="font-sans antialiased bg-white dark:bg-slate-900 text-slate-900 dark:text-white transition-all duration-800 ease-out">
+    <slot />
+    
+    <!-- Footer -->
+    <footer class="bg-slate-900 dark:bg-black text-white py-12">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Brand -->
+          <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center gap-3 mb-6">
+              <img src="/logo.svg" alt="Logo" class="h-8 w-8 object-contain filter brightness-0 invert" />
+              <span class="font-display text-xl font-bold">Fatih Yıldız</span>
+            </div>
+            <p class="text-slate-400 mb-6 max-w-md">
+              Düşünceli tasarım, tipografi ve kullanıcı arayüzlerinde uzmanlaşmış, anlamlı deneyimler yaratmaya odaklanan tutkulu yaratıcı tasarımcı.
+            </p>
+            <div class="flex gap-4">
+              <a href="https://www.linkedin.com/in/ffatihyildizz/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors duration-300">
+                <i class="fab fa-linkedin text-white text-lg"></i>
+              </a>
+              <a href="https://www.behance.net/ffatihyildizz" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors duration-300">
+                <i class="fab fa-behance text-white text-lg"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick links -->
+          <div>
+                          <h4 class="font-semibold text-white mb-4">Hızlı Linkler</h4>
+            <ul class="space-y-2">
+                      <li><a href="/#portfolio" class="text-slate-400 hover:text-white transition-colors duration-300">Portföy</a></li>
+        <li><a href="/#about" class="text-slate-400 hover:text-white transition-colors duration-300">Hakkımda</a></li>
+        <li><a href="/#contact" class="text-slate-400 hover:text-white transition-colors duration-300">İletişim</a></li>
+        <li><a href="/projects" class="text-slate-400 hover:text-white transition-colors duration-300">Tüm Projeler</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="border-t border-slate-800 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+          <p class="text-slate-400 text-sm text-center md:text-left">
+            © {new Date().getFullYear()} Fatih Yıldız. Tüm hakları saklıdır.
+          </p>
+          <div class="flex gap-6 mt-4 md:mt-0">
+            <a href="/privacy" class="text-slate-400 hover:text-white text-sm transition-colors duration-300">Gizlilik Politikası</a>
+            <a href="/terms" class="text-slate-400 hover:text-white text-sm transition-colors duration-300">Kullanım Şartları</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,123 @@
+---
+// ThemeToggle.astro - Enhanced switch-style theme toggle
+---
+<div class="theme-toggle-container relative" data-theme-aware>
+  <!-- Switch Toggle -->
+  <button 
+    id="theme-toggle"
+    class="theme-switch relative inline-flex h-10 w-20 items-center rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 hover:scale-105 active:scale-95"
+    :class="isDark ? 'bg-blue-600' : 'bg-slate-200'"
+    aria-label="Tema değiştir"
+    title="Tema değiştir (Ctrl/Cmd + J)"
+  >
+                <!-- Sun Icon (Left Side) -->
+            <div class="absolute left-3 z-10 transition-all duration-300" :class="isDark ? 'opacity-40 scale-75' : 'opacity-100 scale-100'">
+              <svg class="h-5 w-5 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+              </svg>
+            </div>
+            
+            <!-- Moon Icon (Right Side) -->
+            <div class="absolute right-3 z-10 transition-all duration-300" :class="isDark ? 'opacity-100 scale-100' : 'opacity-40 scale-75'">
+              <svg class="h-5 w-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+              </svg>
+            </div>
+    
+                <!-- Switch Thumb -->
+            <span 
+              class="inline-block h-8 w-8 transform rounded-full bg-white transition-all duration-300 border-2 border-slate-100"
+              :class="isDark ? 'translate-x-10' : 'translate-x-1'"
+            >
+            </span>
+  </button>
+</div>
+
+<script>
+  // Enhanced switch-style theme toggle functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.theme-toggle-container');
+    const button = document.getElementById('theme-toggle');
+    
+    // Initialize switch state
+    if (window.themeUtils) {
+      const currentTheme = window.themeUtils.getTheme();
+      const isDark = currentTheme === 'dark';
+      
+              // Set initial switch position
+        button.setAttribute('aria-checked', isDark);
+        button.classList.toggle('bg-blue-600', isDark);
+        button.classList.toggle('bg-slate-200', !isDark);
+      
+      // Listen for theme changes
+      window.addEventListener('themechange', (event) => {
+        const newTheme = event.detail.theme;
+        const newIsDark = newTheme === 'dark';
+        
+        // Update switch position
+        button.setAttribute('aria-checked', newIsDark);
+        button.classList.toggle('bg-blue-600', newIsDark);
+        button.classList.toggle('bg-slate-200', !newIsDark);
+      });
+    }
+    
+    // Add click handler
+    button.addEventListener('click', function() {
+      if (window.themeUtils) {
+        window.themeUtils.toggleTheme();
+      }
+    });
+    
+    // Keyboard shortcut (Ctrl/Cmd + J)
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'j') {
+        e.preventDefault();
+        if (window.themeUtils) {
+          window.themeUtils.toggleTheme();
+        }
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Enhanced switch toggle styles */
+  .theme-switch {
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .theme-switch:focus {
+    outline: none;
+  }
+  
+  /* Smooth transitions */
+  .theme-switch,
+  .theme-switch span {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Icon transitions */
+  .theme-switch svg {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Theme-aware elements */
+  [data-theme-aware] {
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Hover and focus effects */
+  .theme-switch:hover {
+    transform: scale(1.05);
+  }
+  
+  .theme-switch:active {
+    transform: scale(0.95);
+  }
+  
+  .theme-switch:focus {
+    transform: scale(1.02);
+  }
+</style>

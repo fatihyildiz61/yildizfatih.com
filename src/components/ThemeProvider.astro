@@ -1,0 +1,335 @@
+---
+// ThemeProvider.astro - Enhanced theme management with better performance and features
+---
+<script is:inline>
+  // Enhanced theme management utilities
+  window.themeUtils = {
+    // Get current theme with fallback
+    getTheme: () => {
+      try {
+        return localStorage.getItem('theme') || 
+               (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch (e) {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+    },
+    
+    // Set theme with enhanced transition effect
+    setTheme: (theme) => {
+      const previousTheme = window.themeUtils.getTheme();
+      if (previousTheme === theme) return;
+      
+      // Prevent multiple simultaneous theme changes
+      if (window.themeUtils.isTransitioning) return;
+      window.themeUtils.isTransitioning = true;
+      
+      // Add transition class to prevent flash
+      document.documentElement.classList.add('theme-transitioning');
+      
+      // Create enhanced transition overlay
+      const overlay = document.createElement('div');
+      overlay.className = 'theme-transition-overlay';
+      overlay.innerHTML = `
+        <div class="theme-transition-content">
+          <div class="theme-transition-icon">
+            ${theme === 'dark' ? '🌙' : '☀️'}
+          </div>
+                  <div class="theme-transition-text">
+          ${theme === 'dark' ? 'Karanlık' : 'Aydınlık'} moda geçiliyor...
+        </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+      
+      // Show overlay with animation
+      requestAnimationFrame(() => {
+        overlay.classList.add('active');
+      });
+      
+      // Apply theme with delay for smooth transition
+      setTimeout(() => {
+        try {
+          localStorage.setItem('theme', theme);
+        } catch (e) {
+          console.warn('Tema tercihi kaydedilemedi:', e);
+        }
+        
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        
+        // Update meta theme-color for mobile browsers
+        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (metaThemeColor) {
+          metaThemeColor.setAttribute('content', theme === 'dark' ? '#0f172a' : '#ffffff');
+        }
+        
+        // Update CSS custom properties
+        document.documentElement.style.setProperty('--current-theme', theme);
+        
+        // Hide overlay and cleanup
+        setTimeout(() => {
+          overlay.classList.remove('active');
+          setTimeout(() => {
+            if (document.body.contains(overlay)) {
+              document.body.removeChild(overlay);
+            }
+            document.documentElement.classList.remove('theme-transitioning');
+            window.themeUtils.isTransitioning = false;
+          }, 600);
+        }, 400);
+        
+        // Dispatch theme change event
+        window.dispatchEvent(new CustomEvent('themechange', { 
+          detail: { theme, previousTheme } 
+        }));
+        
+        console.log('Tema değiştirildi:', theme);
+      }, 200);
+    },
+    
+    // Toggle theme with animation
+    toggleTheme: () => {
+      const currentTheme = window.themeUtils.getTheme();
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      window.themeUtils.setTheme(newTheme);
+      return newTheme;
+    },
+    
+    // Check if dark mode is active
+    isDark: () => {
+      return window.themeUtils.getTheme() === 'dark';
+    },
+    
+    // Get theme preference (user choice vs system)
+    getThemePreference: () => {
+      const userTheme = localStorage.getItem('theme');
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      
+      return {
+        user: userTheme,
+        system: systemTheme,
+        current: userTheme || systemTheme,
+        isSystem: !userTheme
+      };
+    },
+    
+    // Reset to system preference
+    resetToSystem: () => {
+      try {
+        localStorage.removeItem('theme');
+      } catch (e) {
+        console.warn('Tema tercihi kaldırılamadı:', e);
+      }
+      
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      window.themeUtils.setTheme(systemTheme);
+    },
+    
+    // Listen for system theme changes with enhanced handling
+    watchSystemTheme: () => {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      
+      const handleChange = (e) => {
+        // Only auto-switch if user hasn't set a preference
+        if (!localStorage.getItem('theme')) {
+          window.themeUtils.setTheme(e.matches ? 'dark' : 'light');
+        }
+        
+        // Dispatch system theme change event
+        window.dispatchEvent(new CustomEvent('systemthemechange', { 
+          detail: { theme: e.matches ? 'dark' : 'light' } 
+        }));
+      };
+      
+      mediaQuery.addEventListener('change', handleChange);
+      
+      // Return cleanup function
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    },
+    
+    // Get theme statistics
+    getThemeStats: () => {
+      const preference = window.themeUtils.getThemePreference();
+      const isDark = window.themeUtils.isDark();
+      
+      return {
+        current: preference.current,
+        user: preference.user,
+        system: preference.system,
+        isSystem: preference.isSystem,
+        isDark,
+        timestamp: Date.now()
+      };
+    }
+  };
+  
+  // Initialize theme on page load with enhanced error handling
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      const theme = window.themeUtils.getTheme();
+      window.themeUtils.setTheme(theme);
+      
+      // Start watching for system theme changes
+      window.themeUtils.watchSystemTheme();
+      
+      // Add theme class to body for additional styling
+      document.body.classList.add('theme-initialized');
+      
+      // Set initial CSS custom property
+      document.documentElement.style.setProperty('--current-theme', theme);
+      
+      console.log('Theme system initialized:', theme);
+    } catch (error) {
+      console.error('Failed to initialize theme system:', error);
+      // Fallback to light theme
+      document.documentElement.classList.remove('dark');
+    }
+  });
+  
+  // Enhanced theme change event handling
+  window.addEventListener('themechange', (event) => {
+    const { theme, previousTheme } = event.detail;
+    
+    // Update any theme-dependent elements
+    document.querySelectorAll('[data-theme-dependent]').forEach(element => {
+      element.setAttribute('data-theme', theme);
+    });
+    
+    // Update theme-aware components
+    document.querySelectorAll('[data-theme-aware]').forEach(element => {
+      element.dispatchEvent(new CustomEvent('themeupdate', { 
+        detail: { theme, previousTheme } 
+      }));
+    });
+    
+    // Trigger any custom theme change handlers
+    if (window.onThemeChange) {
+      window.onThemeChange(theme, previousTheme);
+    }
+    
+    // Analytics tracking (if available)
+    if (window.gtag) {
+      window.gtag('event', 'theme_change', {
+        event_category: 'User Experience',
+        event_label: theme,
+        value: theme === 'dark' ? 1 : 0
+      });
+    }
+  });
+  
+  // Handle system theme changes
+  window.addEventListener('systemthemechange', (event) => {
+    const { theme } = event.detail;
+    
+    // Update system theme indicator
+    document.querySelectorAll('[data-system-theme]').forEach(element => {
+      element.setAttribute('data-system-theme', theme);
+    });
+  });
+</script>
+
+<!-- Enhanced theme meta tags -->
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+
+<!-- Enhanced theme transition styles -->
+<style is:inline>
+  /* CSS Custom Properties for theme transitions */
+  :root {
+    --theme-transition-duration: 0.8s;
+    --theme-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --current-theme: light;
+  }
+  
+  /* Smooth theme transitions */
+  html {
+    transition: color var(--theme-transition-duration) var(--theme-transition-easing), 
+                background-color var(--theme-transition-duration) var(--theme-transition-easing);
+  }
+  
+  /* Prevent flash during theme switch */
+  html.theme-transitioning * {
+    transition: none !important;
+  }
+  
+  /* Theme-specific body classes */
+  body.theme-initialized {
+    opacity: 1;
+    transition: opacity var(--theme-transition-duration) var(--theme-transition-easing);
+  }
+  
+  body:not(.theme-initialized) {
+    opacity: 0;
+  }
+  
+  /* Enhanced theme transition overlay */
+  .theme-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    background: #ffffff;
+    transition: opacity var(--theme-transition-duration) var(--theme-transition-easing);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .theme-transition-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  
+  .theme-transition-content {
+    text-align: center;
+    color: white;
+    transform: translateY(20px);
+    transition: transform var(--theme-transition-duration) var(--theme-transition-easing);
+  }
+  
+  .theme-transition-overlay.active .theme-transition-content {
+    transform: translateY(0);
+  }
+  
+  .theme-transition-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: bounce 1s ease-in-out infinite;
+  }
+  
+  .theme-transition-text {
+    font-size: 1.125rem;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+  
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-10px);
+    }
+    60% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  /* Theme-aware elements */
+  [data-theme-aware] {
+    transition: all var(--theme-transition-duration) var(--theme-transition-easing);
+  }
+  
+  /* System theme indicator */
+  [data-system-theme="dark"] {
+    --system-theme-color: #1e293b;
+  }
+  
+  [data-system-theme="light"] {
+    --system-theme-color: #f8fafc;
+  }
+</style>

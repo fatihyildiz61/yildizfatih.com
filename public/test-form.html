@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form Test - Yildiz Fatih</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .loading {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Contact Form Test</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">
+            Bu form contact-handler.php dosyasını test etmek için oluşturulmuştur.
+        </p>
+        
+        <form id="testForm">
+            <div class="form-group">
+                <label for="name">Ad Soyad *</label>
+                <input type="text" id="name" name="name" required placeholder="Adınız ve soyadınız">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">E-posta *</label>
+                <input type="email" id="email" name="email" required placeholder="email@adresiniz.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="subject">Konu *</label>
+                <select id="subject" name="subject" required>
+                    <option value="">Konu seçiniz</option>
+                    <option value="test-mesaj">Test Mesajı</option>
+                    <option value="logo-tasarim">Logo Tasarımı</option>
+                    <option value="marka-kimligi">Marka Kimliği</option>
+                    <option value="ui-ux-tasarim">UI/UX Tasarım</option>
+                    <option value="sosyal-medya">Sosyal Medya Tasarımı</option>
+                    <option value="baski-materyalleri">Baskı Materyalleri</option>
+                    <option value="diger">Diğer</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Mesaj *</label>
+                <textarea id="message" name="message" rows="4" required placeholder="Bu bir test mesajıdır. Contact form'un çalışıp çalışmadığını kontrol etmek için gönderiliyor..."></textarea>
+            </div>
+            
+            <button type="submit" id="submitBtn">
+                <span id="submitText">Test Mesajı Gönder</span>
+                <span id="loadingText" style="display: none;">Gönderiliyor...</span>
+            </button>
+        </form>
+        
+        <div id="result" class="result"></div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 5px; border-left: 4px solid #007bff;">
+            <h3>ℹ️ Test Bilgileri</h3>
+            <p><strong>Hedef:</strong> info@yildizfatih.com</p>
+            <p><strong>SMTP Server:</strong> mail.kurumsaleposta.com:465</p>
+            <p><strong>Test Sonrası:</strong> Mail'in gelip gelmediğini kontrol edin</p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('testForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const loadingText = document.getElementById('loadingText');
+        const result = document.getElementById('result');
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Loading state
+            submitBtn.disabled = true;
+            submitText.style.display = 'none';
+            loadingText.style.display = 'inline';
+            result.style.display = 'none';
+            
+            try {
+                const formData = new FormData(form);
+                
+                const response = await fetch('/contact-handler.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showResult('success', data.message || 'Mesaj başarıyla gönderildi!');
+                    form.reset();
+                } else {
+                    showResult('error', data.error || 'Bir hata oluştu');
+                }
+                
+            } catch (error) {
+                showResult('error', 'Bağlantı hatası: ' + error.message);
+            } finally {
+                // Reset loading state
+                submitBtn.disabled = false;
+                submitText.style.display = 'inline';
+                loadingText.style.display = 'none';
+            }
+        });
+        
+        function showResult(type, message) {
+            result.className = `result ${type}`;
+            result.textContent = message;
+            result.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                result.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

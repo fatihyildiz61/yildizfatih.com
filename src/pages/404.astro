@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+
+const seoData = {
+  title: "Sayfa Bulunamadı - 404 | Fatih Yıldız Portfolio",
+  description: "Aradığınız sayfa bulunamadı. Ana sayfaya dönerek portföyümü inceleyebilirsiniz.",
+  keywords: "404, sayfa bulunamadı, Fatih Yıldız, portfolio"
+};
+---
+
+<BaseLayout title={seoData.title} description={seoData.description}>
+  <!-- Enhanced SEO Meta Tags -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+  
+  <!-- Enhanced Structured Data for 404 -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Sayfa Bulunamadı",
+    "description": seoData.description,
+    "url": "https://yildizfatih.com/404",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Fatih Yıldız Portfolio",
+      "url": "https://yildizfatih.com"
+    },
+    "inLanguage": "tr-TR",
+    "isAccessibleForFree": true
+  })} />
+  
+  <Nav />
+  
+  <main class="min-h-screen flex items-center justify-center px-6 pt-32">
+    <div class="text-center max-w-2xl mx-auto">
+      <!-- 404 Icon -->
+      <div class="mb-8">
+        <div class="w-32 h-32 mx-auto bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full flex items-center justify-center">
+          <span class="text-6xl font-bold text-blue-600 dark:text-blue-400">404</span>
+        </div>
+      </div>
+      
+      <!-- Error Message -->
+      <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+        Sayfa Bulunamadı
+      </h1>
+      
+      <p class="text-xl text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+        Aradığınız sayfa mevcut değil veya taşınmış olabilir. 
+        Ana sayfaya dönerek portföyümü inceleyebilirsiniz.
+      </p>
+      
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+          Ana Sayfaya Dön
+        </a>
+        <a href="/projects" class="px-8 py-4 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all duration-300">
+          Projeleri Gör
+        </a>
+      </div>
+      
+      <!-- Helpful Links -->
+      <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Popüler Sayfalar</h3>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/work/social-media-designs-vol-3" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300">
+            Sosyal Medya Tasarımları
+          </a>
+          <a href="/work/ecommerce-platform" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300">
+            E-ticaret Platformu
+          </a>
+          <a href="/work/logofolio-24" class="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300">
+            Logo Portföyü 2024
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Smooth animations */
+  main {
+    animation: fadeInUp 0.6s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,1038 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+// Import translation data
+import trTranslations from '../../content/translations/tr.json';
+import enTranslations from '../../content/translations/en.json';
+
+export async function getStaticPaths() {
+  try {
+    // Sadece MDX dosyalarından path'ler oluştur
+    const modules = import.meta.glob('../../content/projects/*.mdx');
+    const paths = [];
+    
+    for (const [path, module] of Object.entries(modules)) {
+      try {
+        const { default: Content, frontmatter } = await module();
+        const slug = path.split('/').pop()?.replace('.mdx', '');
+        if (slug && frontmatter && Content) {
+          paths.push({
+            params: { slug },
+            props: { frontmatter, Content }
+          });
+        }
+      } catch (error) {
+        console.warn(`Proje yüklenirken hata ${path}:`, error);
+        // Continue with other projects
+      }
+    }
+    
+    return paths;
+  } catch (error) {
+    console.error('Error in getStaticPaths:', error);
+    return [];
+  }
+}
+
+const { slug } = Astro.params;
+const { frontmatter, Content } = Astro.props;
+
+// Enhanced error handling and fallbacks
+if (!frontmatter || !Content) {
+  return Astro.redirect('/404');
+}
+
+// Güvenli frontmatter değişkeni with validation
+const safeFrontmatter = {
+  title: frontmatter.title || 'Proje',
+  summary: frontmatter.summary || frontmatter.description || 'Proje detayları burada yer alacak.',
+  description: frontmatter.description || frontmatter.summary || 'Proje detayları burada yer alacak.',
+  cover: frontmatter.cover || '/images/profile.jpg',
+  category: frontmatter.category || 'Grafik Tasarım',
+  tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
+  year: frontmatter.year || new Date().getFullYear(),
+  role: frontmatter.role || 'Tasarımcı',
+  gallery: Array.isArray(frontmatter.gallery) ? frontmatter.gallery : [],
+  ...frontmatter
+};
+
+// Validate required fields
+const requiredFields = ['title'];
+const missingFields = requiredFields.filter(field => !safeFrontmatter[field]);
+
+if (missingFields.length > 0) {
+          console.warn(`Proje ${slug} için eksik gerekli alanlar:`, missingFields);
+}
+
+// Meta URL oluştur with error handling
+const baseUrl = 'https://yildizfatih.com';
+const metaUrl = `${baseUrl}${Astro.url.pathname}`;
+
+// Enhanced SEO Meta Data with fallbacks
+const metaTitle = `${safeFrontmatter.title} — Fatih Yıldız | Profesyonel Grafik Tasarımcı`;
+const metaDescription = safeFrontmatter.summary || safeFrontmatter.description || 'Profesyonel grafik tasarım projesi detayları ve portföy showcase. Logo tasarımı, kurumsal kimlik ve yaratıcı tasarım çözümleri.';
+const metaImage = safeFrontmatter.cover || '/images/profile.jpg';
+
+// Safe date handling
+let publishedTime, modifiedTime;
+try {
+  publishedTime = safeFrontmatter.year ? `${safeFrontmatter.year}-01-01` : new Date().toISOString();
+  modifiedTime = new Date().toISOString();
+} catch (error) {
+          console.warn('Tarihler ayrıştırılırken hata:', error);
+  publishedTime = new Date().toISOString();
+  modifiedTime = new Date().toISOString();
+}
+
+// Enhanced SEO Keywords with validation
+const baseKeywords = [
+  'grafik tasarım',
+  'logo tasarımı',
+  'kurumsal kimlik',
+  'marka tasarımı',
+  'portföy',
+  'tasarım projeleri',
+  'İstanbul tasarımcı',
+  'profesyonel tasarım'
+];
+
+const safeTags = Array.isArray(safeFrontmatter.tags) ? safeFrontmatter.tags : [];
+const safeCategory = safeFrontmatter.category ? [safeFrontmatter.category.toLowerCase()] : [];
+
+const seoKeywords = [
+  ...baseKeywords,
+  ...safeTags,
+  ...safeCategory
+].filter(Boolean).join(', ');
+
+// Enhanced Structured Data with validation
+let structuredData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": safeFrontmatter.title,
+  "description": safeFrontmatter.summary || safeFrontmatter.description,
+  "image": metaImage,
+  "url": metaUrl,
+  "datePublished": publishedTime,
+  "dateModified": modifiedTime,
+  "author": {
+    "@type": "Person",
+    "name": "Fatih Yıldız",
+    "url": "https://yildizfatih.com",
+    "jobTitle": "Profesyonel Grafik Tasarımcı",
+    "knowsAbout": safeTags.length > 0 ? safeTags : ["Grafik Tasarım", "Logo Tasarımı", "Kurumsal Kimlik"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Istanbul",
+      "addressCountry": "TR"
+    }
+  },
+  "creator": {
+    "@type": "Person",
+    "name": "Fatih Yıldız"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Fatih Yıldız Portfolio",
+    "url": "https://yildizfatih.com"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": metaUrl
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Ana Sayfa",
+        "item": "https://yildizfatih.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Projeler",
+        "item": "https://yildizfatih.com/projects"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": safeFrontmatter.title,
+        "item": metaUrl
+      }
+    ]
+  },
+  "keywords": seoKeywords,
+  "genre": safeFrontmatter.category || "Grafik Tasarım",
+  "inLanguage": "tr-TR",
+  "isAccessibleForFree": true,
+  "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Profesyonel tasarım arayanlar, işletmeler, startup'lar"
+  },
+  "offers": {
+    "@type": "Offer",
+    "category": "Grafik Tasarım Hizmetleri",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "reviewCount": "100+",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "potentialAction": {
+    "@type": "ContactAction",
+    "name": "İletişime Geç",
+    "url": "https://yildizfatih.com/#contact",
+    "actionStatus": "PotentialActionStatus"
+  }
+};
+
+// Validate structured data
+try {
+  JSON.stringify(structuredData);
+} catch (error) {
+  console.error('Invalid structured data:', error);
+  // Fallback to minimal structured data
+  structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": safeFrontmatter.title,
+    "url": metaUrl
+  };
+}
+---
+
+<BaseLayout 
+  title={metaTitle} 
+  description={metaDescription}
+  image={metaImage}
+  url={metaUrl}
+>
+  <!-- Error Boundary and Fallback Handling -->
+  {!safeFrontmatter.title ? (
+    <div class="min-h-screen flex items-center justify-center bg-red-50 dark:bg-red-900/20">
+      <div class="text-center p-8">
+        <h1 class="text-2xl font-bold text-red-800 dark:text-red-200 mb-4" id="error-title">
+          Proje Yüklenemedi
+        </h1>
+        <p class="text-red-600 dark:text-red-300 mb-6" id="error-description">
+          Bu proje bilgileri yüklenirken bir hata oluştu.
+        </p>
+        <a href="/projects" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+          <span id="error-back-button">Tüm Projelere Dön</span>
+        </a>
+      </div>
+    </div>
+  ) : (
+    <>
+      <!-- Enhanced Open Graph Meta Tags -->
+      <meta property="og:title" content={metaTitle} />
+      <meta property="og:description" content={metaDescription} />
+      <meta property="og:image" content={metaImage} />
+      <meta property="og:url" content={metaUrl} />
+      <meta property="og:type" content="article" />
+      <meta property="og:locale" content="tr_TR" />
+      <meta property="og:site_name" content="Fatih Yıldız Portfolio" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={`${safeFrontmatter.title} kapak görseli - ${safeFrontmatter.category} projesi`} />
+      
+      <!-- Enhanced Twitter Card Meta Tags -->
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={metaTitle} />
+      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:image" content={metaImage} />
+      <meta name="twitter:image:alt" content={`${safeFrontmatter.title} kapak görseli - ${safeFrontmatter.category} projesi`} />
+      <meta name="twitter:site" content="@yildizfatih" />
+      <meta name="twitter:creator" content="@yildizfatih" />
+      
+      <!-- Additional SEO Meta Tags -->
+      <meta name="keywords" content={seoKeywords} />
+      <meta name="author" content="Fatih Yıldız" />
+      <meta name="robots" content="index, follow" />
+      <meta name="language" content="Turkish" />
+      <meta name="revisit-after" content="7 days" />
+      
+      <!-- Article Specific Meta Tags -->
+      <meta property="article:published_time" content={publishedTime} />
+      <meta property="article:modified_time" content={modifiedTime} />
+      <meta property="article:author" content="Fatih Yıldız" />
+      <meta property="article:section" content={safeFrontmatter.category} />
+      {safeFrontmatter.tags && safeFrontmatter.tags.length > 0 && (
+        safeFrontmatter.tags.map(tag => (
+          <meta property="article:tag" content={tag} />
+        ))
+      )}
+      
+      <!-- SEO Structured Data with Error Handling -->
+      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+      
+      <Nav />
+      
+      <main class="min-h-screen" role="main" aria-label={`${safeFrontmatter.title} detay sayfası`}>
+        <!-- Project Header with Error Handling -->
+        <section class="relative py-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900" aria-labelledby="project-title">
+          <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
+            <!-- Breadcrumb Navigation -->
+            <nav class="flex items-center gap-2 text-sm mb-8 pt-8" aria-label="Breadcrumb">
+              <ol class="flex items-center space-x-2">
+                <li>
+                  <a href="/" class="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span id="breadcrumb-home">Ana Sayfa</span>
+                  </a>
+                </li>
+                <li class="text-slate-400 dark:text-slate-500">/</li>
+                <li>
+                  <a href="/projects" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    <span id="breadcrumb-projects">Projeler</span>
+                  </a>
+                </li>
+                <li class="text-slate-400 dark:text-slate-500">/</li>
+                <li>
+                  <span class="text-slate-900 dark:text-white font-medium">
+                    {safeFrontmatter.title}
+                  </span>
+                </li>
+              </ol>
+            </nav>
+            
+            <!-- Project Info with Enhanced Error Handling -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start lg:items-center">
+              <!-- Project Image with Fallback -->
+              <div class="relative order-2 lg:order-1">
+                <div class="aspect-[4/3] rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-br from-blue-500/20 to-purple-500/20 p-1">
+                  <img 
+                    src={safeFrontmatter.cover} 
+                    alt={`${safeFrontmatter.title} kapak görseli - ${safeFrontmatter.category} projesi`}
+                    class="w-full h-full object-cover rounded-2xl sm:rounded-3xl"
+                    loading="eager"
+                    decoding="sync"
+                    fetchpriority="high"
+                    onerror="this.src='/images/profile.jpg'"
+                  />
+                </div>
+                <!-- Decorative elements - Hidden from screen readers -->
+                <div class="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-12 h-12 sm:w-20 sm:h-20 bg-blue-500/10 rounded-full blur-lg sm:blur-xl" aria-hidden="true"></div>
+                <div class="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 w-10 h-10 sm:w-16 sm:h-16 bg-purple-500/10 rounded-full blur-lg sm:blur-xl" aria-hidden="true"></div>
+              </div>
+              
+              <!-- Project Details with Validation -->
+              <div class="space-y-4 sm:space-y-6 order-1 lg:order-2">
+                <!-- Enhanced Category badge with validation -->
+                <div class="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-full text-xs sm:text-sm font-medium text-blue-700 dark:text-blue-300" role="status" aria-label={`Kategori: ${safeFrontmatter.category}`}>
+                  <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                  </svg>
+                  <span>{safeFrontmatter.category}</span>
+                </div>
+                
+                <!-- Enhanced Title with validation -->
+                <h1 id="project-title" class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight">
+                  {safeFrontmatter.title}
+                </h1>
+                
+                <!-- Enhanced Description with validation -->
+                <p class="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-400 leading-relaxed" role="doc-subtitle">
+                  {safeFrontmatter.summary || safeFrontmatter.description}
+                </p>
+                
+                <!-- Enhanced Tags with validation -->
+                {safeTags.length > 0 && (
+                  <div class="flex flex-wrap gap-1.5 sm:gap-2" role="group" aria-label="Proje etiketleri">
+                    {safeTags.map((tag, tagIndex) => (
+                      <span class="inline-flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-medium rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-300" role="tag" aria-label={`Etiket ${tagIndex + 1}: ${tag}`}>
+                          <svg class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-slate-500 dark:text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                          </svg>
+                          <span>{tag}</span>
+                        </span>
+                    ))}
+                  </div>
+                )}
+                
+                <!-- Project Year and Role Info with validation -->
+                <div class="flex flex-wrap gap-3 sm:gap-4 pt-2" role="group" aria-label="Proje bilgileri">
+                  {safeFrontmatter.year && (
+                    <div class="flex items-center gap-1.5 sm:gap-2 text-slate-600 dark:text-slate-400" role="text" aria-label={`Proje yılı: ${safeFrontmatter.year}`}>
+                      <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                      </svg>
+                      <span class="text-xs sm:text-sm">{safeFrontmatter.year}</span>
+                    </div>
+                  )}
+                  {safeFrontmatter.role && (
+                    <div class="flex items-center gap-1.5 sm:gap-2 text-slate-600 dark:text-slate-400" role="text" aria-label={`Proje rolü: ${Array.isArray(safeFrontmatter.role) ? safeFrontmatter.role.join(', ') : safeFrontmatter.role}`}>
+                      <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                      </svg>
+                      <span class="text-xs sm:text-sm">{Array.isArray(safeFrontmatter.role) ? safeFrontmatter.role.join(', ') : safeFrontmatter.role}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Project Gallery with Simple Thumbnail Structure -->
+        {safeFrontmatter.gallery && safeFrontmatter.gallery.length > 0 ? (
+          <section class="py-20 bg-slate-50 dark:bg-slate-900/50" aria-labelledby="gallery-title">
+            <div class="max-w-6xl mx-auto px-6">
+              <div class="text-center mb-16">
+                <h2 id="gallery-title" class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                  Proje Görselleri
+                </h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                  Bu projede kullanılan tasarım çözümleri ve görsel detaylar
+                </p>
+              </div>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                {safeFrontmatter.gallery.map((image, imageIndex) => {
+                  const isVideo = image.toLowerCase().endsWith('.mp4');
+                  const isImage = !isVideo;
+                  
+                  return (
+                    <div class="group relative rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 hover:shadow-lg transition-all duration-300 cursor-pointer p-4 flex items-center justify-center" 
+                         role="button" 
+                         tabindex="0"
+                         aria-label={`${safeFrontmatter.title} ${isVideo ? 'video' : 'görsel'} ${imageIndex + 1}`}
+                         data-image-src={image}
+                         data-image-title={`${safeFrontmatter.title} ${isVideo ? 'video' : 'görsel'} ${imageIndex + 1}`}
+                         data-image-index={imageIndex}
+                         data-is-video={isVideo}>
+                      
+                      {isImage ? (
+                        <>
+                          <!-- Blurlu arkaplan görseli -->
+                          <img 
+                            src={image} 
+                            alt=""
+                            class="absolute inset-0 w-full h-full object-cover blur-sm scale-110"
+                            loading={imageIndex < 3 ? "eager" : "lazy"}
+                            decoding={imageIndex < 3 ? "sync" : "async"}
+                            aria-hidden="true"
+                          />
+                          
+                          <!-- Siyah transparan arkaplan -->
+                          <div class="absolute inset-0 bg-black/40" aria-hidden="true"></div>
+                          
+                          <!-- Ana görsel -->
+                          <img 
+                            src={image} 
+                            alt={`${safeFrontmatter.title} görsel ${imageIndex + 1} - ${safeFrontmatter.category} projesi`}
+                            class="relative z-10 w-full h-auto max-h-80 object-contain group-hover:scale-105 transition-transform duration-500"
+                            loading={imageIndex < 3 ? "eager" : "lazy"}
+                            decoding={imageIndex < 3 ? "sync" : "async"}
+                            width="400"
+                            height="300"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 50vw"
+                            onerror="this.src='/images/profile.jpg'"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <!-- Video için blurlu arkaplan görseli (ilk frame) -->
+                          <video 
+                            src={image}
+                            class="absolute inset-0 w-full h-full object-cover blur-sm scale-110"
+                            muted
+                            preload="metadata"
+                            aria-hidden="true"
+                          />
+                          
+                          <!-- Siyah transparan arkaplan -->
+                          <div class="absolute inset-0 bg-black/40" aria-hidden="true"></div>
+                          
+                          <!-- Video Player -->
+                          <video 
+                            src={image}
+                            class="relative z-10 w-full h-auto max-h-80 object-contain group-hover:scale-105 transition-transform duration-500"
+                            autoplay
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            poster="/images/profile.jpg"
+                            onerror="this.style.display='none'"
+                            data-image-src={image}
+                            data-image-title={`${safeFrontmatter.title} video ${imageIndex + 1} - ${safeFrontmatter.category} projesi`}
+                            data-image-index={imageIndex}
+                            data-is-video
+                            data-index={imageIndex}
+                          >
+                            Tarayıcınız video oynatmayı desteklemiyor.
+                          </video>
+                          
+                          <!-- Video Play Icon -->
+                          <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                            <div class="w-16 h-16 bg-black/50 rounded-full flex items-center justify-center">
+                              <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                              </svg>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                      
+                      <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 z-20" aria-hidden="true"></div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        <!-- Enhanced Image Modal with Fullscreen -->
+        {safeFrontmatter.gallery && safeFrontmatter.gallery.length > 0 && (
+          <div id="imageModal" class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4">
+            <div class="relative w-full h-full flex items-center justify-center">
+              <!-- Close Button -->
+              <button 
+                id="closeModalBtn"
+                class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors duration-300 z-10 bg-black/50 hover:bg-black/70 p-2 rounded-full"
+                aria-label="Modalı kapat"
+              >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+              
+
+              
+              <!-- Modal Image/Video Container -->
+              <div id="imageContainer" class="relative max-w-[90vw] max-h-[90vh] overflow-auto flex items-center justify-center">
+                <!-- Background Container - Thumbnail'lardaki gibi -->
+                <div id="modalBackground" class="absolute inset-0 rounded-lg overflow-hidden">
+                  <!-- Blurlu arkaplan görseli/video -->
+                  <img id="modalBackgroundImage" class="w-full h-full object-cover blur-sm scale-110" alt="" />
+                  <video id="modalBackgroundVideo" class="w-full h-full object-cover blur-sm scale-110" muted preload="metadata" loop></video>
+                  <!-- Siyah transparan arkaplan -->
+                  <div class="absolute inset-0 bg-black/40"></div>
+                </div>
+                
+                <!-- Image Display -->
+                <img 
+                  id="modalImage" 
+                  src="" 
+                  alt="" 
+                  class="relative z-10 w-auto h-auto max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl cursor-pointer hidden"
+                  title="Görseli tam ekran yapmak için tıklayın"
+                />
+                
+                <!-- Video Display -->
+                <video 
+                  id="modalVideo" 
+                  class="relative z-10 w-auto h-auto max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl cursor-pointer hidden"
+                  title="Videoyu tam ekran yapmak için tıklayın"
+                  controls
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  src=""
+                >
+                  Tarayıcınız video oynatmayı desteklemiyor.
+                </video>
+              </div>
+              
+              <!-- Navigation Arrows -->
+              <button 
+                id="prevImageBtn"
+                class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-4 rounded-full transition-all duration-300 hover:scale-110"
+                aria-label="Önceki görsel"
+              >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+              </button>
+              
+              <button 
+                id="nextImageBtn"
+                class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-4 rounded-full transition-all duration-300 hover:scale-110"
+                aria-label="Sonraki görsel"
+              >
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </button>
+              
+              <!-- Image Counter -->
+              <div id="imageCounter" class="absolute top-4 left-1/2 -translate-x-1/2 z-10">
+                <div class="bg-black/50 text-white px-4 py-2 rounded-full text-sm font-medium">
+                  <span id="currentImageNumber">1</span> / <span id="totalImages">{safeFrontmatter.gallery.length}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <!-- Project Content -->
+        <section class="py-16 bg-white dark:bg-slate-900">
+          <div class="max-w-4xl mx-auto px-6">
+            <div class="prose prose-lg dark:prose-invert max-w-none" id="mdx-content">
+              <Content />
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  )}
+</BaseLayout>
+
+<!-- Enhanced Gallery Modal Script with Fullscreen -->
+{safeFrontmatter.gallery && safeFrontmatter.gallery.length > 0 && (
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalVideo = document.getElementById('modalVideo');
+      const imageContainer = document.getElementById('imageContainer');
+      const closeBtn = document.getElementById('closeModalBtn');
+
+      
+      const prevBtn = document.getElementById('prevImageBtn');
+      const nextBtn = document.getElementById('nextImageBtn');
+      const currentNumber = document.getElementById('currentImageNumber');
+      const totalImages = document.getElementById('totalImages');
+      
+      let currentIndex = 0;
+      let isFullscreen = false;
+      // Sadece thumbnail container'ları al, video elementlerini ayrı sayma
+      const images = Array.from(document.querySelectorAll('div[data-image-index]'));
+      
+      // Open modal - sadece container'lara click event ekle
+      images.forEach((container, index) => {
+        container.addEventListener('click', () => {
+          currentIndex = index;
+          openModal(index);
+        });
+      });
+      
+      // Video click events artık gerekli değil çünkü container'lara click event ekliyoruz
+      
+      // Debug bilgileri kaldırıldı
+      
+      // Close modal
+      closeBtn.addEventListener('click', closeModal);
+      
+      // Image click to toggle fullscreen
+      modalImage.addEventListener('click', toggleFullscreen);
+      
+
+      
+      // Navigation
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateModal();
+        resetToNormalView();
+      });
+      
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateModal();
+        resetToNormalView();
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('hidden')) {
+          if (e.key === 'Escape') {
+            if (isFullscreen) {
+              toggleFullscreen();
+            } else {
+              closeModal();
+            }
+          }
+          if (e.key === 'ArrowLeft') prevBtn.click();
+          if (e.key === 'ArrowRight') nextBtn.click();
+          if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+        }
+      });
+      
+      // Click outside to close (only in normal mode)
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal && !isFullscreen) closeModal();
+      });
+      
+      function openModal(index) {
+        currentIndex = index;
+        isFullscreen = false;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        updateModal();
+        updateFullscreenUI();
+        document.body.style.overflow = 'hidden';
+        
+        // Reset to normal view when opening modal
+        resetToNormalView();
+      }
+      
+
+      
+      function closeModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        isFullscreen = false;
+        document.body.style.overflow = '';
+        updateFullscreenUI();
+      }
+      
+      function toggleFullscreen() {
+        isFullscreen = !isFullscreen;
+        updateFullscreenUI();
+        
+        if (isFullscreen) {
+          // Enter fullscreen - remove all constraints
+          modal.classList.remove('p-4', 'items-center');
+          modal.classList.add('fullscreen');
+          imageContainer.classList.remove('max-w-[90vw]', 'max-h-[90vh]');
+          imageContainer.classList.add('w-full', 'h-full', 'p-0', 'flex', 'justify-center', 'overflow-auto', 'items-start', 'fullscreen');
+          
+          // Handle both image and video
+          if (!modalImage.classList.contains('hidden')) {
+            modalImage.classList.remove('max-w-[90vw]', 'max-h-[90vh]');
+            modalImage.classList.add('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+          }
+          if (!modalVideo.classList.contains('hidden')) {
+            modalVideo.classList.remove('max-w-[90vw]', 'max-h-[90vh]');
+            modalVideo.classList.add('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+          }
+          
+          // Hide navigation elements in fullscreen
+          prevBtn.classList.add('opacity-0');
+          nextBtn.classList.add('opacity-0');
+          imageCounter.classList.add('opacity-0');
+        } else {
+          // Exit fullscreen - restore constraints
+          modal.classList.add('p-4', 'items-start');
+          modal.classList.remove('fullscreen');
+          imageContainer.classList.remove('w-full', 'h-full', 'p-0', 'flex', 'justify-center', 'overflow-auto', 'items-start', 'fullscreen');
+          imageContainer.classList.add('max-w-[90vw]', 'max-h-[90vh]');
+          
+          // Handle both image and video
+          if (!modalImage.classList.contains('hidden')) {
+            modalImage.classList.remove('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+            modalImage.classList.add('max-w-[90vw]', 'max-h-[90vh]');
+          }
+          if (!modalVideo.classList.contains('hidden')) {
+            modalVideo.classList.remove('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+            modalVideo.classList.add('max-w-[90vw]', 'max-h-[90vh]');
+          }
+          
+          // Show navigation elements
+          prevBtn.classList.remove('opacity-0');
+          nextBtn.classList.remove('opacity-0');
+          imageCounter.classList.remove('opacity-0');
+        }
+      }
+      
+      function resetToNormalView() {
+        if (isFullscreen) {
+          isFullscreen = false;
+          updateFullscreenUI();
+          
+          // Exit fullscreen - restore constraints
+          modal.classList.add('p-4', 'items-start');
+          modal.classList.remove('fullscreen');
+          imageContainer.classList.remove('w-full', 'h-full', 'p-0', 'flex', 'justify-center', 'overflow-auto', 'items-start', 'fullscreen');
+          imageContainer.classList.add('max-w-[90vw]', 'max-h-[90vh]');
+          
+          // Handle both image and video
+          if (!modalImage.classList.contains('hidden')) {
+            modalImage.classList.remove('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+            modalImage.classList.add('max-w-[90vw]', 'max-h-[90vh]');
+          }
+          if (!modalVideo.classList.contains('hidden')) {
+            modalVideo.classList.remove('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+            modalVideo.classList.add('max-w-[90vw]', 'max-h-[90vh]');
+          }
+          
+          // Show navigation elements
+          prevBtn.classList.remove('opacity-0');
+          nextBtn.classList.remove('opacity-0');
+          imageCounter.classList.remove('opacity-0');
+        }
+      }
+      
+      function updateFullscreenUI() {
+        // Zoom icon functionality removed
+      }
+      
+      function updateModal() {
+        const container = images[currentIndex];
+        const src = container.getAttribute('data-image-src');
+        const title = container.getAttribute('data-image-title');
+        const isVideo = container.hasAttribute('data-is-video');
+        
+        console.log('Container:', container);
+        console.log('Source:', src);
+        console.log('Title:', title);
+        console.log('Is Video:', isVideo);
+        
+
+        
+        if (isVideo) {
+          console.log('Video detected:', src);
+          
+          // Show video, hide image
+          modalImage.classList.add('hidden');
+          modalVideo.classList.remove('hidden');
+          
+          // Video background'ı set et - thumbnail'lardaki gibi
+          const modalBackgroundVideo = document.getElementById('modalBackgroundVideo');
+          const modalBackgroundImage = document.getElementById('modalBackgroundImage');
+          
+          if (modalBackgroundVideo && modalBackgroundImage) {
+            modalBackgroundImage.classList.add('hidden');
+            modalBackgroundVideo.classList.remove('hidden');
+            modalBackgroundVideo.src = src;
+            // Background video'yu da muted ve loop yap
+            modalBackgroundVideo.muted = true;
+            modalBackgroundVideo.loop = true;
+          }
+          
+          // Video elementini sıfırla ve yeni source'u set et
+          modalVideo.pause();
+          modalVideo.currentTime = 0;
+          modalVideo.src = src;
+          currentNumber.textContent = currentIndex + 1;
+          
+          // Video'yu yükle ve metadata'yı bekle
+          setTimeout(() => {
+            modalVideo.load();
+          }, 100);
+          
+          // Video yüklendikten sonra boyutları ayarla
+          modalVideo.onloadedmetadata = function() {
+            console.log('Video metadata loaded');
+            if (!isFullscreen) {
+              modalVideo.classList.remove('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+              modalVideo.classList.add('max-w-[90vw]', 'max-h-[90vh]');
+            } else {
+              modalVideo.classList.remove('max-w-[90vw]', 'max-h-[90vh]');
+              modalVideo.classList.add('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+            }
+          };
+          
+          // Video yüklendikten sonra otomatik başlat
+          modalVideo.oncanplay = function() {
+            console.log('Video can play, starting...');
+            modalVideo.play().catch(function(error) {
+              console.log('Video otomatik başlatılamadı:', error);
+            });
+          };
+          
+          // Video hata durumunda
+          modalVideo.onerror = function(e) {
+            console.log('Video yüklenirken hata oluştu:', e);
+            console.log('Video error:', modalVideo.error);
+          };
+          
+        } else {
+          // Show image, hide video
+          modalVideo.classList.add('hidden');
+          modalImage.classList.remove('hidden');
+          
+          // Görsel background'ı set et - thumbnail'lardaki gibi
+          const modalBackgroundVideo = document.getElementById('modalBackgroundVideo');
+          const modalBackgroundImage = document.getElementById('modalBackgroundImage');
+          
+          if (modalBackgroundVideo && modalBackgroundImage) {
+            modalBackgroundVideo.classList.add('hidden');
+            modalBackgroundImage.classList.remove('hidden');
+            modalBackgroundImage.src = src;
+          }
+          
+          modalImage.src = src;
+          modalImage.alt = title;
+          currentNumber.textContent = currentIndex + 1;
+          
+          // Ensure image loads with correct dimensions
+          modalImage.onload = function() {
+            if (!isFullscreen) {
+              // Reset to normal view constraints
+              modalImage.classList.remove('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+              modalImage.classList.add('max-w-[90vw]', 'max-h-[90vh]');
+            } else {
+              // In fullscreen, ensure image shows at full size
+              modalImage.classList.remove('max-w-[90vw]', 'max-h-[90vh]');
+              modalImage.classList.add('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
+            }
+          };
+        }
+      }
+    });
+  </script>
+)}
+
+<style>
+  /* Enhanced modal styles with fullscreen support */
+  #imageModal {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  #modalImage,
+  #modalVideo {
+    transition: all 0.3s ease;
+  }
+  
+  /* Background container styles - thumbnail'lardaki gibi */
+  #modalBackground {
+    position: absolute;
+    inset: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  #modalBackgroundImage,
+  #modalBackgroundVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(4px);
+    transform: scale(1.1);
+  }
+  
+  #imageContainer {
+    transition: all 0.3s ease;
+  }
+  
+  /* Fullscreen mode styles */
+  #imageModal.fullscreen {
+    padding: 0 !important;
+  }
+  
+  #imageModal.fullscreen #modalBackground {
+    border-radius: 0;
+  }
+  
+  #imageModal.fullscreen #imageContainer {
+    border-radius: 0;
+  }
+  
+  #imageContainer.fullscreen {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    padding: 0 !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    overflow: auto !important;
+  }
+  
+  #imageContainer.fullscreen img {
+    width: auto !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: none !important;
+    margin: 0 !important;
+    min-width: auto !important;
+    min-height: auto !important;
+  }
+  
+  /* Fullscreen scrollbar styling */
+  #imageContainer.fullscreen::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  
+  #imageContainer.fullscreen::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+  }
+  
+  #imageContainer.fullscreen::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+  }
+  
+  #imageContainer.fullscreen::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Smooth transitions for navigation elements */
+  #prevImageBtn,
+  #nextImageBtn,
+  #imageCounter {
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Scrollbar styling for fullscreen mode */
+  #imageContainer::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  #imageContainer::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+  }
+  
+  #imageContainer::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+  }
+  
+  #imageContainer::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
+  
+  /* Enhanced fullscreen scrollbar */
+  #imageContainer.fullscreen::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  
+  #imageContainer.fullscreen::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 6px;
+  }
+  
+  #imageContainer.fullscreen::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 6px;
+  }
+  
+  #imageContainer.fullscreen::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    #prevImageBtn,
+    #nextImageBtn {
+      padding: 0.75rem;
+    }
+    
+    #prevImageBtn {
+      left: 1rem;
+    }
+    
+    #nextImageBtn {
+      right: 1rem;
+    }
+    
+    #imageCounter {
+      left: 1rem;
+      transform: none;
+    }
+    
+
+  }
+</style>
+

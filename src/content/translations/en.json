@@ -1,0 +1,126 @@
+{
+  "hero": {
+    "title": "Professional",
+    "subtitle": "Graphic Designer",
+    "description": "Portfolio",
+    "summary": "Professional graphic designer specializing in logo design, corporate identity, UI/UX design, social media and print design.",
+    "cta": {
+      "portfolio": "View My Work",
+      "contact": "Get In Touch"
+    }
+  },
+  "skills": {
+    "title": "Core Skills",
+    "items": [
+      "Logo Design",
+      "Corporate Identity",
+      "UI/UX Design",
+      "Web Interfaces",
+      "Social Media Design",
+      "Print Materials"
+    ]
+  },
+  "stats": {
+    "experience": {
+      "number": "11+",
+      "label": "Years Experience",
+      "description": "In graphic design"
+    },
+    "projects": {
+      "number": "100+",
+      "label": "Completed Projects",
+      "description": "Across various industries"
+    },
+    "satisfaction": {
+      "number": "100%",
+      "label": "Client Satisfaction",
+      "description": "Consistent quality delivery"
+    }
+  },
+  "portfolio": {
+    "title": "Selected",
+    "subtitle": "Work",
+    "description": "A carefully curated collection of my best work across different design disciplines",
+    "viewAll": "View All Projects"
+  },
+  "contact": {
+    "title": "Let's Work",
+    "subtitle": "Together",
+    "description": "Ready to bring your ideas to life? I'm always excited to talk about new projects.",
+    "form": {
+      "title": "Send me a message",
+      "name": "Full Name",
+      "email": "Email",
+      "message": "Message",
+      "namePlaceholder": "Your full name",
+      "emailPlaceholder": "your@email.com",
+      "messagePlaceholder": "Tell me about your project...",
+      "submit": "Send Message"
+    },
+    "info": {
+      "title": "Get in touch",
+      "email": "Email",
+      "emailResponse": "I'll respond within 24 hours",
+      "location": "Location",
+      "locationText": "Istanbul, Turkey",
+      "locationDescription": "Available for remote work",
+      "social": "Social Media"
+    }
+  },
+  "footer": {
+    "description": "Passionate creative designer focused on thoughtful design, typography and user interfaces to create meaningful experiences.",
+    "quickLinks": "Quick Links",
+    "portfolio": "Portfolio",
+    "about": "About",
+    "contact": "Contact",
+    "allProjects": "All Projects",
+    "copyright": "© {year} Fatih Yıldız. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  },
+  "navigation": {
+    "portfolio": "Portfolio",
+    "about": "About",
+    "contact": "Contact",
+    "allProjects": "All Projects",
+    "getInTouch": "Get In Touch"
+  },
+  "projectDetail": {
+    "breadcrumb": {
+      "home": "Home",
+      "projects": "Projects"
+    },
+    "gallery": {
+      "title": "Project Images",
+      "description": "All design work created for this project",
+      "total": "Total",
+      "count": "images available",
+      "noImages": "No images available for this project."
+    },
+    "modal": {
+      "closeInstruction": "Press ESC to close the image",
+      "keyboardShortcuts": "Keyboard Shortcuts:",
+      "navInstruction": "← → : Navigate images",
+      "zoomInstruction": "Z : Zoom mode",
+      "fullscreenInstruction": "F : Fullscreen (scrollable)",
+      "closeInstructionKey": "ESC : Close"
+    },
+    "navigation": {
+      "previous": "Previous image",
+      "next": "Next image"
+    },
+    "messages": {
+      "modalOpened": "Modal opened",
+      "modalClosed": "Modal closed",
+      "firstToLast": "Wrapped from first to last image",
+      "lastToFirst": "Wrapped from last to first image",
+      "imageLoadError": "Image failed to load",
+      "modeChangeError": "Image mode could not be changed.",
+      "fullscreenError": "Fullscreen mode could not be opened.",
+      "navigationError": "Could not navigate to previous image.",
+      "nextNavigationError": "Could not navigate to next image.",
+      "thumbnailError": "Could not navigate to image.",
+      "modalCloseError": "An error occurred while closing the modal."
+    }
+  }
+}

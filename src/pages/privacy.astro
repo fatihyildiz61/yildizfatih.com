@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+
+const seoData = {
+  title: "Gizlilik Politikası - Fatih Yıldız Portfolio",
+  description: "Fatih Yıldız portföy sitesi gizlilik politikası, kişisel veri koruma, KVKK uyumluluğu ve veri güvenliği hakkında detaylı bilgi.",
+  keywords: "gizlilik politikası, kişisel veri koruma, KVKK, veri güvenliği, Fatih Yıldız, portföy sitesi"
+};
+---
+
+<BaseLayout title={seoData.title} description={seoData.description}>
+  <!-- Enhanced Open Graph Meta Tags -->
+  <meta property="og:title" content={seoData.title} />
+  <meta property="og:description" content={seoData.description} />
+  <meta property="og:image" content="/images/profile.jpg" />
+  <meta property="og:url" content="https://yildizfatih.com/privacy" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="Fatih Yıldız Portfolio" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Fatih Yıldız - Gizlilik Politikası" />
+  
+  <!-- Enhanced Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={seoData.title} />
+  <meta name="twitter:description" content={seoData.description} />
+  <meta name="twitter:image" content="/images/profile.jpg" />
+  <meta name="twitter:image:alt" content="Fatih Yıldız - Gizlilik Politikası" />
+  <meta name="twitter:site" content="@yildizfatih" />
+  <meta name="twitter:creator" content="@yildizfatih" />
+  
+  <!-- Additional SEO Meta Tags -->
+  <meta name="keywords" content={seoData.keywords} />
+  <meta name="author" content="Fatih Yıldız" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="Turkish" />
+  <meta name="revisit-after" content="yearly" />
+  
+  <!-- Structured Data for Legal Page -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Gizlilik Politikası",
+    "description": seoData.description,
+    "url": "https://yildizfatih.com/privacy",
+    "author": {
+      "@type": "Person",
+      "name": "Fatih Yıldız"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Fatih Yıldız Portfolio",
+      "url": "https://yildizfatih.com"
+    },
+    "inLanguage": "tr-TR",
+    "isAccessibleForFree": true
+  })} />
+  
+  <Nav />
+  
+  <main class="pt-32 pb-20 min-h-screen bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-6">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-sm mb-8" aria-label="Breadcrumb">
+        <a href="/" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          Ana Sayfa
+        </a>
+        <span class="text-slate-400 dark:text-slate-500">/</span>
+        <span class="text-slate-900 dark:text-white font-medium">Gizlilik Politikası</span>
+      </nav>
+      
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white mb-4">Gizlilik Politikası</h1>
+        <p class="text-lg text-slate-600 dark:text-slate-400">Kişisel verilerinizin güvenliği bizim için önemli</p>
+      </div>
+      
+      <div class="prose prose-slate dark:prose-invert max-w-none">
+        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-6 mb-8">
+          <p class="text-blue-800 dark:text-blue-200 text-sm mb-0">
+            <strong>Son güncelleme:</strong> {new Date().toLocaleDateString('tr-TR')}
+          </p>
+        </div>
+
+        <h2>1. Genel Bilgiler</h2>
+        <p>Bu gizlilik politikası, Fatih Yıldız portföy sitesi üzerinden toplanan kişisel verilerin işlenmesi ve korunması hakkında bilgi vermektedir. Kişisel verilerinizin güvenliği bizim için son derece önemlidir.</p>
+
+        <h2>2. Toplanan Veriler</h2>
+        <p>İletişim formunu kullandığınızda aşağıdaki bilgiler toplanır:</p>
+        <ul>
+          <li><strong>Ad Soyad:</strong> Size düzgün hitap edebilmek için</li>
+          <li><strong>E-posta:</strong> Size yanıt verebilmek için</li>
+          <li><strong>Mesaj:</strong> Talebinizi anlayabilmek için</li>
+          <li><strong>IP Adresi:</strong> Güvenlik ve spam koruması için (otomatik)</li>
+          <li><strong>Tarayıcı Bilgileri:</strong> Teknik uyumluluk için (otomatik)</li>
+        </ul>
+
+        <h2>3. Veri Kullanımı</h2>
+        <p>Toplanan veriler yalnızca aşağıdaki amaçlar için kullanılır:</p>
+        <ul>
+          <li>Size yanıt vermek için</li>
+          <li>Proje teklifleri hazırlamak için</li>
+          <li>İş toplantıları planlamak için</li>
+          <li>Hizmet kalitesini artırmak için</li>
+          <li>Yasal yükümlülükleri yerine getirmek için</li>
+        </ul>
+        <p><strong>Verileriniz asla pazarlama amaçları için kullanılmaz veya üçüncü taraflarla paylaşılmaz.</strong></p>
+
+        <h2>4. Veri Saklama ve Güvenlik</h2>
+        <p>Verileriniz maksimum <strong>2 yıl</strong> saklanır. Bu süre sonunda güvenli bir şekilde silinir.</p>
+        <p>Veri güvenliği için aşağıdaki önlemler alınmıştır:</p>
+        <ul>
+          <li>SSL şifreleme (HTTPS protokolü)</li>
+          <li>Güvenli sunucu altyapısı</li>
+          <li>Düzenli güvenlik güncellemeleri</li>
+          <li>Erişim kontrolü ve yetkilendirme</li>
+        </ul>
+
+        <h2>5. KVKK ve Yasal Haklarınız</h2>
+        <p>6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında aşağıdaki haklara sahipsiniz:</p>
+        <ul>
+          <li>Verilerinizi görüntüleme</li>
+          <li>Düzeltme talep etme</li>
+          <li>Silme talep etme</li>
+          <li>İşlemeyi sınırlama talep etme</li>
+          <li>Başka bir yere aktarım talep etme</li>
+          <li>İtiraz etme</li>
+        </ul>
+
+        <h2>6. Çerezler (Cookies)</h2>
+        <p>Sitemizde aşağıdaki çerez türleri kullanılmaktadır:</p>
+        <ul>
+          <li><strong>Gerekli Çerezler:</strong> Site fonksiyonları için zorunlu</li>
+          <li><strong>Analitik Çerezler:</strong> Site performansını ölçmek için</li>
+          <li><strong>Tercih Çerezleri:</strong> Tema seçimi gibi kullanıcı tercihleri için</li>
+        </ul>
+
+        <h2>7. Üçüncü Taraf Hizmetler</h2>
+        <p>Sitemizde aşağıdaki üçüncü taraf hizmetler kullanılmaktadır:</p>
+        <ul>
+          <li><strong>Google Fonts:</strong> Tipografi için</li>
+          <li><strong>Font Awesome:</strong> İkonlar için</li>
+          <li><strong>CDN Hizmetleri:</strong> Hızlı içerik dağıtımı için</li>
+        </ul>
+
+        <h2>8. İletişim</h2>
+        <p>Gizlilik politikası ile ilgili sorularınız için:</p>
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-lg p-4">
+          <p class="mb-2"><strong>E-posta:</strong> <a href="mailto:info@yildizfatih.com" class="text-blue-600 dark:text-blue-400 hover:underline">info@yildizfatih.com</a></p>
+          <p class="mb-0"><strong>Adres:</strong> İstanbul, Türkiye</p>
+        </div>
+
+        <h2>9. Değişiklikler</h2>
+        <p>Bu gizlilik politikası gerekli görüldüğünde güncellenebilir. Önemli değişiklikler sitede duyurulacaktır.</p>
+
+        <h2>10. Onay</h2>
+        <p>Bu siteyi kullanarak gizlilik politikamızı kabul etmiş olursunuz.</p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

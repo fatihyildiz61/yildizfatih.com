@@ -1,0 +1,437 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+// Get all projects from content files
+const modules = import.meta.glob('../../content/projects/*.mdx', { eager: true });
+const allProjects = Object.entries(modules).map(([path, mod]) => {
+  // @ts-ignore
+  const fm = mod.frontmatter || {};
+  const slug = path.split('/').pop()?.replace('.mdx','');
+  return { ...fm, slug, id: slug };
+}).sort((a,b) => (b.year||0) - (a.year||0));
+
+// Get unique categories and tags for filtering
+const categories = [...new Set(allProjects.map(p => p.category).filter(Boolean))];
+const allTags = [...new Set(allProjects.flatMap(p => p.tags || []))];
+
+// SEO data - Düzeltildi
+const seoData = {
+  title: "Tüm Projeler - Fatih Yıldız Portfolio",
+  description: "Fatih Yıldız'ın tüm grafik tasarım projeleri, logo tasarımları, UI/UX projeleri ve sosyal medya tasarımları. Profesyonel portföy showcase.",
+  keywords: "portföy, tasarım projeleri, marka kimliği, UX tasarım, UI tasarım, vaka çalışmaları, yaratıcı çalışmalar, İstanbul tasarımcı",
+  ogImage: "/images/profile.jpg"
+};
+---
+
+<BaseLayout title="Tüm Projeler - Fatih Yıldız Portfolio" description="Fatih Yıldız'ın tüm grafik tasarım projeleri, logo tasarımları, UI/UX projeleri ve sosyal medya tasarımları. Profesyonel portföy showcase." image={seoData.ogImage} url="https://yildizfatih.com/projects">
+  <!-- Enhanced Open Graph Meta Tags -->
+  <meta property="og:title" content="Tüm Projeler - Fatih Yıldız Portfolio" />
+  <meta property="og:description" content="Fatih Yıldız'ın tüm grafik tasarım projeleri, logo tasarımları, UI/UX projeleri ve sosyal medya tasarımları. Profesyonel portföy showcase." />
+  <meta property="og:image" content="/images/profile.jpg" />
+  <meta property="og:url" content="https://yildizfatih.com/projects" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="Fatih Yıldız Portfolio" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Fatih Yıldız - Proje Portföyü" />
+  
+  <!-- Enhanced Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tüm Projeler - Fatih Yıldız Portfolio" />
+  <meta name="twitter:description" content="Fatih Yıldız'ın tüm grafik tasarım projeleri, logo tasarımları, UI/UX projeleri ve sosyal medya tasarımları. Profesyonel portföy showcase." />
+  <meta name="twitter:image" content="/images/profile.jpg" />
+  <meta name="twitter:image:alt" content="Fatih Yıldız - Proje Portföyü" />
+  <meta name="twitter:site" content="@yildizfatih" />
+  <meta name="twitter:creator" content="@yildizfatih" />
+  
+  <!-- Additional SEO Meta Tags -->
+  <meta name="keywords" content="grafik tasarım projeleri, logo tasarımları, UI/UX projeleri, sosyal medya tasarımları, portföy, Fatih Yıldız" />
+  <meta name="author" content="Fatih Yıldız" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="Turkish" />
+  <meta name="revisit-after" content="7 days" />
+  
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Tüm Projeler",
+    "description": "Fatih Yıldız'ın tüm grafik tasarım projeleri ve portföy çalışmaları.",
+    "url": "https://yildizfatih.com/projects",
+    "mainEntity": allProjects.map(project => ({
+      "@type": "CreativeWork",
+      "name": project.title,
+      "description": project.summary || project.description,
+      "dateCreated": project.year,
+      "url": `https://yildizfatih.com/work/${project.slug}`,
+      "image": project.cover,
+      "creator": {
+        "@type": "Person",
+        "name": "Fatih Yıldız"
+      }
+    }))
+  })} />
+  
+  <Nav />
+  
+  <main class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="relative min-h-[80vh] flex items-center justify-center px-4 sm:px-6 -mt-32 pt-28 sm:pt-28 md:pt-24 lg:pt-16">
+      <!-- Subtle background pattern - Ana sayfayla aynı -->
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"></div>
+      <div class="absolute inset-0 opacity-30 dark:opacity-20">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-purple-500/5 rounded-full blur-3xl"></div>
+      </div>
+      
+      <!-- Enhanced Breadcrumb Navigation -->
+      <div class="absolute top-8 left-6 z-20">
+        <nav class="flex items-center gap-3 text-sm" aria-label="Breadcrumb">
+          <ol class="flex items-center space-x-2">
+            <li>
+              <a href="/" class="flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 group">
+                <svg class="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span id="breadcrumb-home">Ana Sayfa</span>
+              </a>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-4 h-4 text-slate-400 dark:text-slate-500 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+              <span class="text-slate-900 dark:text-white font-medium" id="breadcrumb-projects">Tüm Projeler</span>
+            </li>
+          </ol>
+        </nav>
+      </div>
+      
+      <!-- Main content -->
+      <div class="relative z-10 text-center max-w-5xl mx-auto">
+        <!-- Portfolio badge -->
+        <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-full text-xs sm:text-sm font-medium text-blue-700 dark:text-blue-300 mb-6 mt-2 sm:mt-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+          </svg>
+          <span id="portfolio-badge">Portföy Koleksiyonu</span>
+        </div>
+        
+        <!-- Main heading - Ana sayfayla aynı font-display stili -->
+        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] mb-6">
+          <span class="block text-slate-900 dark:text-white" id="hero-title">Yaratıcı</span>
+          <span class="block text-blue-600 dark:text-blue-400" id="hero-subtitle">Projelerim</span>
+        </h1>
+        
+        <!-- Subtitle -->
+        <p class="text-xl sm:text-2xl text-slate-600 dark:text-slate-400 max-w-4xl mx-auto mb-8 leading-relaxed" id="hero-description">
+          Farklı disiplinler ve sektörlerdeki tasarım çalışmalarımın kapsamlı koleksiyonu. 
+          Her proje benzersiz bir zorluk ve yaratıcı çözümü temsil eder.
+        </p>
+        
+        <!-- Professional stats - Ana sayfayla aynı stil -->
+        <div class="grid grid-cols-3 gap-8 max-w-2xl mx-auto mb-8">
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">{allProjects.length}</div>
+            <div class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" id="stats-total-projects">Toplam Proje</div>
+            <div class="text-xs text-slate-500 dark:text-slate-500" id="stats-total-description">Farklı sektörlerde</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">{categories.length}</div>
+            <div class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" id="stats-categories">Kategoriler</div>
+            <div class="text-xs text-slate-500 dark:text-slate-500" id="stats-categories-description">Tasarım alanları</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">{allTags.length}</div>
+            <div class="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" id="stats-skills">Uygulanan Beceriler</div>
+            <div class="text-xs text-slate-500 dark:text-slate-500" id="stats-skills-description">Çeşitli teknikler</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="py-20 bg-slate-50 dark:bg-slate-900/50">
+      <div class="max-w-6xl mx-auto px-6">
+        <!-- Section header -->
+        <div class="text-center mb-16">
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            <span id="section-title-1">Tüm</span> <span class="text-blue-600 dark:text-blue-400" id="section-title-2">Projeler</span>
+          </h2>
+          <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8" id="section-description">
+            Detaylı portföy koleksiyonumu keşfedin ve ilham alın
+          </p>
+          
+          <!-- Ana sayfadaki tab yapısı buraya taşındı -->
+          <div class="flex flex-wrap justify-center gap-3 mb-12">
+            <button class="category-filter px-6 py-3 bg-blue-600 text-white font-medium rounded-lg transition-all duration-300 hover:bg-blue-700 active" data-category="all">
+              <span id="tab-all">Tümü</span>
+            </button>
+            <button class="category-filter px-6 py-3 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-all duration-300 hover:bg-slate-300 dark:hover:bg-slate-600" data-category="logo">
+              <span id="tab-logo">Logo Tasarımı</span>
+            </button>
+            <button class="category-filter px-6 py-3 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-all duration-300 hover:bg-slate-300 dark:hover:bg-slate-600" data-category="ui-ux">
+              <span id="tab-ui-ux">UI/UX Tasarımı</span>
+            </button>
+            <button class="category-filter px-6 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-lg transition-all duration-300 hover:bg-slate-300 dark:hover:bg-slate-600" data-category="social">
+              <span id="tab-social">Sosyal Medya</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+          {allProjects.map((project) => (
+            <a 
+              href={`/work/${project.slug}`}
+              class="project-card group block bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:border-blue-300 dark:hover:border-blue-600"
+              data-category={project.category?.toLowerCase().includes('logo') ? 'logo' : 
+                            project.category?.toLowerCase().includes('ui') || project.category?.toLowerCase().includes('ux') ? 'ui-ux' :
+                            project.category?.toLowerCase().includes('social') || project.category?.toLowerCase().includes('sosyal') ? 'social' : 'other'}
+              data-tags={project.tags?.join(' ').toLowerCase() || ''}
+              data-title={project.title?.toLowerCase() || ''}
+              data-summary={project.summary?.toLowerCase() || ''}
+            >
+              <div class="relative aspect-[4/3] overflow-hidden">
+                <img 
+                  src={project.cover || '/images/profile.jpg'} 
+                  alt={`${project.title} - ${project.category || 'Project'}`}
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <!-- Enhanced Category badge - Ana sayfayla aynı -->
+                {project.category && (
+                  <div class="absolute top-4 right-4">
+                    <span class="inline-flex items-center px-3 py-1 bg-white/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 text-xs font-medium rounded-full backdrop-blur-sm">
+                      {project.category}
+                    </span>
+                  </div>
+                )}
+                
+                <!-- Year badge - Ana sayfayla aynı -->
+                {project.year && (
+                  <div class="absolute top-4 left-4">
+                    <span class="inline-flex items-center px-2 py-1 bg-blue-600/90 text-white text-xs font-medium rounded-full backdrop-blur-sm">
+                      {project.year}
+                    </span>
+                  </div>
+                )}
+              </div>
+              
+              <div class="p-6">
+                <div class="mb-4">
+                  <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed line-clamp-2">
+                    {project.summary || project.description}
+                  </p>
+                </div>
+                
+                <!-- Enhanced Tags - Ana sayfayla aynı -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {project.tags && project.tags.slice(0, 3).map((tag) => (
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs rounded-md border border-slate-200 dark:border-slate-600">
+                      {tag}
+                    </span>
+                  ))}
+                  {project.tags && project.tags.length > 3 && (
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs rounded-md border border-slate-200 dark:border-slate-600">
+                      +{project.tags.length - 3}
+                    </span>
+                  )}
+                </div>
+                
+                <!-- Enhanced CTA - Ana sayfayla aynı -->
+                <div class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all duration-300 text-sm">
+                  <span class="project-view-text">Projeyi Görüntüle</span>
+                  <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <!-- No results message -->
+        <div id="no-results" class="hidden text-center py-16">
+          <div class="text-6xl mb-4">🔍</div>
+          <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2" id="no-results-title">Proje bulunamadı</h3>
+          <p class="text-slate-600 dark:text-slate-400" id="no-results-description">Filtrelerinizi veya arama kriterlerinizi ayarlamayı deneyin.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-white dark:bg-slate-900">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center">
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            <span id="cta-title-1">Birlikte</span> <span class="text-blue-600 dark:text-blue-400" id="cta-title-2">Çalışalım</span>
+          </h2>
+          <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-8" id="cta-description">
+            Projeniz için yardıma mı ihtiyacınız var? Birlikte harika bir şey yaratalım.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <a href="/#contact" class="group relative px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+              <span class="relative z-10" id="cta-contact-button">İletişime Geçin</span>
+              <div class="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </a>
+            <a href="/" class="px-8 py-4 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-slate-400 dark:hover:border-slate-500 transition-all duration-300">
+              <span id="cta-home-button">Ana Sayfaya Dön</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Custom line clamp for project descriptions */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Ana sayfadaki tab stilleri buraya taşındı - Hover düzeltildi */
+  .category-filter {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .category-filter.active {
+    background-color: #2563eb !important;
+    color: white !important;
+  }
+  
+  /* Hover efektleri düzeltildi - Dark mode uyumlu */
+  .category-filter:hover:not(.active) {
+    background-color: #e2e8f0; /* Light slate */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark .category-filter:hover:not(.active) {
+    background-color: #475569; /* Dark slate */
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Enhanced project card hover effects - Ana sayfayla aynı */
+  .project-card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+    transition: left 0.5s;
+  }
+  
+  .project-card:hover::before {
+    left: 100%;
+  }
+  
+  /* Focus styles for accessibility */
+  button:focus,
+  input:focus,
+  a:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  // Ana sayfadaki filter functionality buraya taşındı
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const projectCards = document.querySelectorAll('.project-card');
+    const noResults = document.getElementById('no-results');
+    const projectsGrid = document.getElementById('projects-grid');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        
+        // Update active button
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active', 'bg-blue-600', 'text-white');
+          btn.classList.add('bg-slate-200', 'dark:bg-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        });
+        
+        this.classList.add('active', 'bg-blue-600', 'text-white');
+        this.classList.remove('bg-slate-200', 'dark:bg-slate-700', 'text-slate-700', 'dark:text-slate-300');
+        
+        // Filter projects
+        let visibleCount = 0;
+        projectCards.forEach(card => {
+          const cardCategory = card.getAttribute('data-category');
+          
+          if (category === 'all' || cardCategory === category) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeInUp 0.5s ease-out';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+        
+        // Show/hide no results message
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+          projectsGrid.classList.add('hidden');
+        } else {
+          noResults.classList.add('hidden');
+          projectsGrid.classList.remove('hidden');
+        }
+      });
+    });
+  });
+
+  // Add animation keyframes
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  `;
+  document.head.appendChild(style);
+</script>

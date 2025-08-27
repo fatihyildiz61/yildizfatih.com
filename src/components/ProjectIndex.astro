@@ -1,0 +1,30 @@
+---
+const modules = import.meta.glob('../content/projects/*.mdx', { eager: true });
+const projects = Object.entries(modules).map(([path, mod]) => {
+  // @ts-ignore
+  const fm = mod.frontmatter || {};
+  const slug = path.split('/').pop()?.replace('.mdx','');
+  return { ...fm, slug };
+}).sort((a,b) => (b.year||0) - (a.year||0));
+---
+<section id="work" class="px-4 md:px-6">
+  <ol class="divide-y divide-current/10">
+    {projects.map(p => (
+      <li class="relative group py-4 flex items-center justify-between">
+        <a href={`/projects/${p.slug}`} class="flex-1 grid grid-cols-12 gap-2 md:gap-4 items-baseline">
+          <span class="col-span-6 md:col-span-5 font-display">{p.title}</span>
+          <span class="col-span-3 md:col-span-3 text-sm text-[var(--muted)]">{(p.role||[]).join(' · ')}</span>
+          <span class="col-span-2 md:col-span-2 text-sm text-[var(--muted)]">{p.client || ''}</span>
+          <span class="col-span-1 md:col-span-2 text-right text-sm">{p.year}</span>
+        </a>
+        {p.cover && (
+          <img src={p.cover} alt={p.title}
+            class="hidden md:block pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 translate-x-6 w-64 h-40 object-cover opacity-0 group-hover:opacity-100 transition duration-200 border border-current/10" />
+        )}
+      </li>
+    ))}
+  </ol>
+</section>
+
+
+

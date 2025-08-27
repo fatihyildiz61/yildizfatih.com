@@ -1,0 +1,126 @@
+{
+  "hero": {
+    "title": "Profesyonel",
+    "subtitle": "Grafik Tasarımcı",
+    "description": "Portföyü",
+    "summary": "Logo tasarımı, kurumsal kimlik, UI/UX tasarım, sosyal medya ve baskı tasarımında uzmanlaşmış profesyonel grafik tasarımcı.",
+    "cta": {
+      "portfolio": "Çalışmalarımı Görüntüle",
+      "contact": "İletişime Geç"
+    }
+  },
+  "skills": {
+    "title": "Temel Beceriler",
+    "items": [
+      "Logo Tasarımı",
+      "Kurumsal Kimlik",
+      "UI/UX Tasarım",
+      "Web Arayüzleri",
+      "Sosyal Medya Tasarımı",
+      "Basılı Materyaller"
+    ]
+  },
+  "stats": {
+    "experience": {
+      "number": "11+",
+      "label": "Yıl Deneyim",
+      "description": "Grafik tasarım alanında"
+    },
+    "projects": {
+      "number": "100+",
+      "label": "Tamamlanan Proje",
+      "description": "Çeşitli sektörlerde"
+    },
+    "satisfaction": {
+      "number": "100%",
+      "label": "Müşteri Memnuniyeti",
+      "description": "Tutarlı kalite sunumu"
+    }
+  },
+  "portfolio": {
+    "title": "Seçili",
+    "subtitle": "Çalışmalar",
+    "description": "Farklı tasarım disiplinlerindeki en iyi çalışmalarımın özenle seçilmiş koleksiyonu",
+    "viewAll": "Tüm Projeleri Görüntüle"
+  },
+  "contact": {
+    "title": "Birlikte",
+    "subtitle": "Çalışalım",
+    "description": "Fikirlerinizi hayata geçirmeye hazır mısınız? Yeni projeler hakkında konuşmaya her zaman heyecan duyarım.",
+    "form": {
+      "title": "Bana mesaj gönderin",
+      "name": "Ad Soyad",
+      "email": "E-posta",
+      "message": "Mesaj",
+      "namePlaceholder": "Adınız ve soyadınız",
+      "emailPlaceholder": "sizin@email.com",
+      "messagePlaceholder": "Projeniz hakkında bana anlatın...",
+      "submit": "Mesaj Gönder"
+    },
+    "info": {
+      "title": "İletişime geçin",
+      "email": "E-posta",
+      "emailResponse": "24 saat içinde yanıt vereceğim",
+      "location": "Konum",
+      "locationText": "İstanbul, Türkiye",
+      "locationDescription": "Uzaktan çalışma için müsait",
+      "social": "Sosyal Medya"
+    }
+  },
+  "footer": {
+    "description": "Anlamlı deneyimler yaratmak için düşünceli tasarım, tipografi ve kullanıcı arayüzleri konusunda tutkulu yaratıcı tasarımcı.",
+    "quickLinks": "Hızlı Linkler",
+    "portfolio": "Portföy",
+    "about": "Hakkımda",
+    "contact": "İletişim",
+    "allProjects": "Tüm Projeler",
+    "copyright": "© {year} Fatih Yıldız. Tüm hakları saklıdır.",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Şartları"
+  },
+  "navigation": {
+    "portfolio": "Portföy",
+    "about": "Hakkımda",
+    "contact": "İletişim",
+    "allProjects": "Tüm Projeler",
+    "getInTouch": "İletişime Geç"
+  },
+  "projectDetail": {
+    "breadcrumb": {
+      "home": "Ana Sayfa",
+      "projects": "Projeler"
+    },
+    "gallery": {
+      "title": "Proje Görselleri",
+      "description": "Bu proje için oluşturulan tüm tasarım çalışmaları",
+      "total": "Toplam",
+      "count": "görsel bulunmaktadır",
+      "noImages": "Bu proje için görsel bulunmamaktadır."
+    },
+    "modal": {
+      "closeInstruction": "Görseli kapatmak için ESC tuşuna basın",
+      "keyboardShortcuts": "Klavye Kısayolları:",
+      "navInstruction": "← → : Görsel değiştir",
+      "zoomInstruction": "Z : Zoom modu",
+      "fullscreenInstruction": "F : Tam ekran (scroll yapılabilir)",
+      "closeInstructionKey": "ESC : Kapat"
+    },
+    "navigation": {
+      "previous": "Önceki görsel",
+      "next": "Sonraki görsel"
+    },
+    "messages": {
+      "modalOpened": "Modal açıldı",
+      "modalClosed": "Modal kapatıldı",
+      "firstToLast": "İlk görselden son görsele döndünüz",
+      "lastToFirst": "Son görselden ilk görsele döndünüz",
+      "imageLoadError": "Görsel yüklenemedi",
+      "modeChangeError": "Görsel modu değiştirilemedi.",
+      "fullscreenError": "Tam ekran modu açılamadı.",
+      "navigationError": "Önceki görsele geçilemedi.",
+      "nextNavigationError": "Sonraki görsele geçilemedi.",
+      "thumbnailError": "Görsele geçilemedi.",
+      "modalCloseError": "Modal kapatılırken bir hata oluştu."
+    }
+  }
+}
