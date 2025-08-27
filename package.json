@@ -7,7 +7,8 @@
     "build": "npm run generate-sitemap && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-sitemap": "node scripts/generate-sitemap.js"
+    "generate-sitemap": "node scripts/generate-sitemap.js",
+    "deploy": "npm run build && git add . && git commit -m 'Auto-deploy' && git push"
   },
   "dependencies": {
     "@astrojs/mdx": "^2.1.1",
