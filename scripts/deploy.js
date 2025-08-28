@@ -1,9 +1,16 @@
-const ftp = require('basic-ftp');
-const fs = require('fs');
-const path = require('path');
+import ftp from 'basic-ftp';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+// ES module için __dirname ve __filename
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // FTP Ayarları - .env dosyasından okuyacak
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 const config = {
   host: process.env.FTP_HOST,
