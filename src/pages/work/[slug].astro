@@ -795,15 +795,15 @@ try {
         const title = container.getAttribute('data-image-title');
         const isVideo = container.hasAttribute('data-is-video');
         
-        console.log('Container:', container);
-        console.log('Source:', src);
-        console.log('Title:', title);
-        console.log('Is Video:', isVideo);
+        // console.log('Container:', container);
+        // console.log('Source:', src);
+        // console.log('Title:', title);
+        // console.log('Is Video:', isVideo);
         
 
         
         if (isVideo) {
-          console.log('Video detected:', src);
+          // console.log('Video detected:', src);
           
           // Show video, hide image
           modalImage.classList.add('hidden');
@@ -835,7 +835,7 @@ try {
           
           // Video yüklendikten sonra boyutları ayarla
           modalVideo.onloadedmetadata = function() {
-            console.log('Video metadata loaded');
+            // console.log('Video metadata loaded');
             if (!isFullscreen) {
               modalVideo.classList.remove('w-auto', 'h-auto', 'max-w-none', 'max-h-none');
               modalVideo.classList.add('max-w-[90vw]', 'max-h-[90vh]');
@@ -847,16 +847,16 @@ try {
           
           // Video yüklendikten sonra otomatik başlat
           modalVideo.oncanplay = function() {
-            console.log('Video can play, starting...');
+            // console.log('Video can play, starting...');
             modalVideo.play().catch(function(error) {
-              console.log('Video otomatik başlatılamadı:', error);
+              // console.log('Video otomatik başlatılamadı:', error);
             });
           };
           
           // Video hata durumunda
           modalVideo.onerror = function(e) {
-            console.log('Video yüklenirken hata oluştu:', e);
-            console.log('Video error:', modalVideo.error);
+            // console.log('Video yüklenirken hata oluştu:', e);
+            // console.log('Video error:', modalVideo.error);
           };
           
         } else {

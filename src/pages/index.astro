@@ -28,9 +28,6 @@ const featuredProjects = allProjects
     return (order[a.slug] || 0) - (order[b.slug] || 0);
   })
   .map(project => {
-    // Debug için console.log ekleyelim
-    console.log('Project:', project.slug, 'Cover:', project.cover, 'Image:', project.image);
-    
     return {
       ...project,
       image: project.cover || '/images/profile.jpg' // Use cover image or fallback to profile

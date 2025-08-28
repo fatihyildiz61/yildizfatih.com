@@ -1,0 +1,6 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="none"/>
+  <path d="M70 60 L100 40 L130 60 L130 140 L70 140 Z" fill="#8B5CF6" stroke="#7C3AED" stroke-width="4"/>
+  <circle cx="100" cy="100" r="20" fill="#F3E8FF" stroke="#8B5CF6" stroke-width="3"/>
+  <text x="100" y="170" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#1F2937">FASHION</text>
+</svg>
