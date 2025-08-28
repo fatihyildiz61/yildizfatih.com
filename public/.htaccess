@@ -1,9 +1,9 @@
 # SSL ve HTTPS Yönlendirmeleri
 RewriteEngine On
 
-# HTTP'den HTTPS'e yönlendirme (sadece SSL hazır olduğunda)
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# HTTP'den HTTPS'e yönlendirme
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # www olmadan gelen istekleri www'lu versiyona yönlendir
 RewriteCond %{HTTP_HOST} !^www\. [NC]
@@ -20,6 +20,8 @@ RewriteRule . /index.html [L]
     Header always set X-Frame-Options DENY
     Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Header always set Content-Security-Policy "upgrade-insecure-requests"
 </IfModule>
 
 # Cache ayarları

@@ -1,82 +1,97 @@
-# SSL Sorun Giderme Rehberi
+# SSL Güvenlik Sorunları Çözüm Rehberi
 
-## 🔍 Mevcut Sorunlar
-1. Site dosyaları doğru yerde ama açılmıyor
-2. SSL sertifikası yanlış (*.srvpanel.com gösteriyor)
-3. HTTPS'de SSL hatası var
-4. Cloudflare "Always Use HTTPS" aktif
+## 🔍 Mevcut Durum Analizi
 
-## 🚀 Çözüm Adımları
+Test sonuçlarına göre:
+- ✅ `yildizfatih.com` → `https://www.yildizfatih.com` yönlendirmesi çalışıyor
+- ✅ `www.yildizfatih.com` HTTPS üzerinden erişilebilir
+- ❌ HTTP üzerinden hala erişilebilir (güvenlik riski)
+- ❌ Mixed content uyarıları olabilir
 
-### 1. Cloudflare Ayarları
-```
-Cloudflare Dashboard > SSL/TLS > Overview
-├── SSL/TLS encryption mode: Full (strict)
-├── Edge Certificates > Always Use HTTPS: KAPALI (geçici)
-├── Edge Certificates > Minimum TLS Version: 1.2
-└── Edge Certificates > Opportunistic Encryption: AÇIK
-```
+## 🚨 Ana Sorunlar
 
-### 2. cPanel SSL Kontrolü
-```
-cPanel > SSL/TLS > Manage SSL Sites
-├── Domain: yildizfatih.com
-├── SSL Certificate: Let's Encrypt ile yeni oluştur
-└── Private Key: Otomatik oluştur
-```
+### 1. HTTP Erişimi Hala Aktif
+- Site hala HTTP üzerinden erişilebilir
+- Bu, güvenlik açığı oluşturuyor
+- Tarayıcılar "güvenli değil" uyarısı veriyor
 
-### 3. DNS Ayarları
-```
-Cloudflare > DNS > Records
-├── Type: A
-├── Name: @
-├── Content: Hosting IP adresi
-└── Proxy status: Proxied (orange cloud)
+### 2. SSL Sertifika Sorunları
+- `www.yildizfatih.com` için SSL sertifikası düzgün çalışmıyor
+- Cloudflare SSL ayarları kontrol edilmeli
+
+### 3. Mixed Content
+- Bazı kaynaklar hala HTTP üzerinden yükleniyor olabilir
+
+## 🛠️ Çözüm Adımları
+
+### Adım 1: .htaccess Güncellemesi
+`.htaccess` dosyasında HTTP'den HTTPS'e yönlendirme aktif edildi:
+```apache
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 ```
 
-### 4. .htaccess Güncellemesi
-- HTTP'den HTTPS'e yönlendirme geçici olarak kapatıldı
-- SSL hazır olduğunda aktif edilecek
+### Adım 2: Güvenlik Başlıkları Eklendi
+```apache
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+Header always set Content-Security-Policy "upgrade-insecure-requests"
+```
+
+### Adım 3: CSP Meta Tag Güncellendi
+`upgrade-insecure-requests` direktifi eklendi.
+
+## 🔧 Hosting Sağlayıcısı Kontrolleri
+
+### Natro Hosting
+1. **SSL Sertifikası**: cPanel > SSL/TLS Status
+2. **Force HTTPS**: cPanel > Domains > Force HTTPS
+3. **.htaccess**: Dosyanın sunucuya yüklendiğinden emin olun
+
+### Cloudflare (Eğer kullanılıyorsa)
+1. **SSL/TLS**: Full (strict) moduna ayarlayın
+2. **Always Use HTTPS**: Aktif edin
+3. **HSTS**: Aktif edin
+
+## 📋 Deployment Kontrol Listesi
+
+- [ ] `.htaccess` dosyası `dist/` klasörüne kopyalandı
+- [ ] GitHub Actions deployment çalıştı
+- [ ] Sunucuda dosyalar güncellendi
+- [ ] SSL sertifikası aktif
+- [ ] HTTP yönlendirmeleri çalışıyor
 
 ## 🧪 Test Komutları
 
-### SSL Testi
+### SSL Test
 ```bash
-npm run test-ssl
+node scripts/ssl-test.cjs
 ```
 
 ### Manuel Test
 ```bash
-# HTTPS testi
-curl -I https://yildizfatih.com
-
-# HTTP testi  
+# HTTP yönlendirmesi testi
 curl -I http://yildizfatih.com
 
-# SSL sertifika detayı
-openssl s_client -connect yildizfatih.com:443 -servername yildizfatih.com
+# HTTPS erişim testi
+curl -I https://www.yildizfatih.com
 ```
 
-## ⚠️ Önemli Notlar
+## 🚀 Sonraki Adımlar
 
-1. **SSL sertifikası yayılması 24-48 saat sürebilir**
-2. **Cloudflare cache'i temizlemek gerekebilir**
-3. **Hosting sağlayıcısı SSL desteği olmalı**
-4. **Domain DNS'i Cloudflare'e yönlendirilmiş olmalı**
-
-## 🔄 Sonraki Adımlar
-
-1. SSL sertifikası yayıldıktan sonra:
-   - .htaccess'de HTTPS yönlendirmeyi aktif et
-   - Cloudflare'de "Always Use HTTPS" aç
-   
-2. Test et:
-   - Site açılıyor mu?
-   - SSL sertifikası doğru mu?
-   - HTTPS yönlendirme çalışıyor mu?
+1. **Deploy**: GitHub Actions ile yeni kodu deploy edin
+2. **Test**: SSL test scriptini çalıştırın
+3. **Kontrol**: Tarayıcıda site güvenlik durumunu kontrol edin
+4. **Monitoring**: SSL Labs testi yapın (https://www.ssllabs.com/ssltest/)
 
 ## 📞 Destek
 
-- **Hosting Sağlayıcısı**: SSL sertifika desteği
-- **Cloudflare**: DNS ve SSL ayarları
-- **Domain Registrar**: DNS yönlendirme
+Eğer sorun devam ederse:
+1. Hosting sağlayıcısı destek ekibiyle iletişime geçin
+2. SSL sertifika durumunu kontrol ettirin
+3. .htaccess dosyasının çalıştığından emin olun
+
+## 🔗 Faydalı Linkler
+
+- [SSL Checker](https://www.sslshopper.com/ssl-checker.html)
+- [SSL Labs Test](https://www.ssllabs.com/ssltest/)
+- [HTTP Security Headers](https://securityheaders.com/)
