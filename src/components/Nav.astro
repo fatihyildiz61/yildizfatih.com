@@ -10,8 +10,8 @@
       <div class="flex items-center">
         <a href="/" class="flex items-center gap-3 group" aria-label="Ana sayfaya git - Fatih Yıldız Portfolio">
           <div class="relative">
-            <!-- Logo - SVG yerine WebP kullanılıyor (tercihinize göre) -->
-            <img src="/logo.svg" alt="Fatih Yıldız Logo" class="h-8 w-8 transition-transform duration-300 group-hover:scale-110 dark:invert dark:brightness-0 dark:filter" />
+            <!-- Logo - SVG formatında -->
+            <img src="/logo.svg" alt="Fatih Yıldız Logo" class="h-8 w-8 transition-transform duration-300 group-hover:scale-110 dark:invert" />
             <div class="absolute inset-0 bg-blue-500/20 rounded-full blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></div>
           </div>
           <span class="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-500">
@@ -387,22 +387,7 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Logo dark mode styling */
-  .logo-dark-mode {
-    filter: brightness(0) invert(1);
-    transition: filter 0.3s ease;
-  }
-  
-  /* Apply to logo in dark mode */
-  .dark .logo-dark-mode {
-    filter: brightness(0) invert(1);
-  }
 
-  /* Logo invert in dark mode */
-  .dark img[alt="Logo"] {
-    filter: invert(1) brightness(1);
-    transition: filter 0.3s ease;
-  }
   
   /* Active state styles */
   .nav-link.active,
