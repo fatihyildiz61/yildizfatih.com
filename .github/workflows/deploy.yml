@@ -2,6 +2,7 @@ name: Deploy to FTP
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -22,6 +23,9 @@ jobs:
     - name: Build
       run: npm run build
       timeout-minutes: 10
+    
+    - name: Copy .htaccess to dist
+      run: cp public/.htaccess dist/
     
     - name: Deploy to FTP
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
