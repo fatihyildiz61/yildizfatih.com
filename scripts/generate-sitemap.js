@@ -29,7 +29,7 @@ function generateSitemap() {
   
   <!-- Projeler Ana Sayfası -->
   <url>
-    <loc>${baseUrl}/projects</loc>
+    <loc>${baseUrl}/projects/</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -37,7 +37,7 @@ function generateSitemap() {
   
   <!-- Proje Sayfaları -->
 ${projects.map(project => `  <url>
-    <loc>${baseUrl}/work/${project}</loc>
+    <loc>${baseUrl}/work/${project}/</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -45,14 +45,14 @@ ${projects.map(project => `  <url>
   
   <!-- Yasal Sayfalar -->
   <url>
-    <loc>${baseUrl}/privacy</loc>
+    <loc>${baseUrl}/privacy/</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
   <url>
-    <loc>${baseUrl}/terms</loc>
+    <loc>${baseUrl}/terms/</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

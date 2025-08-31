@@ -16,3 +16,5 @@ Allow: /images/
 Allow: /public/
 Allow: /work/
 Allow: /projects/
+Allow: /privacy/
+Allow: /terms/
