@@ -106,106 +106,7 @@ const seoKeywords = [
   ...safeCategory
 ].filter(Boolean).join(', ');
 
-// Enhanced Structured Data with validation
-let structuredData = {
-  "@context": "https://schema.org",
-  "@type": "CreativeWork",
-  "name": safeFrontmatter.title,
-  "description": safeFrontmatter.summary || safeFrontmatter.description,
-  "image": metaImage,
-  "url": metaUrl,
-  "datePublished": publishedTime,
-  "dateModified": modifiedTime,
-  "author": {
-    "@type": "Person",
-    "name": "Fatih Yıldız",
-    "url": "https://yildizfatih.com",
-    "jobTitle": "Profesyonel Grafik Tasarımcı",
-    "knowsAbout": safeTags.length > 0 ? safeTags : ["Grafik Tasarım", "Logo Tasarımı", "Kurumsal Kimlik"],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Istanbul",
-      "addressCountry": "TR"
-    }
-  },
-  "creator": {
-    "@type": "Person",
-    "name": "Fatih Yıldız"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Fatih Yıldız Portfolio",
-    "url": "https://yildizfatih.com"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": metaUrl
-  },
-  "breadcrumb": {
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Ana Sayfa",
-        "item": "https://yildizfatih.com"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Projeler",
-        "item": "https://yildizfatih.com/projects"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": safeFrontmatter.title,
-        "item": metaUrl
-      }
-    ]
-  },
-  "keywords": seoKeywords,
-  "genre": safeFrontmatter.category || "Grafik Tasarım",
-  "inLanguage": "tr-TR",
-  "isAccessibleForFree": true,
-  "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
-  "audience": {
-    "@type": "Audience",
-    "audienceType": "Profesyonel tasarım arayanlar, işletmeler, startup'lar"
-  },
-  "offers": {
-    "@type": "Offer",
-    "category": "Grafik Tasarım Hizmetleri",
-    "availability": "https://schema.org/InStock"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5",
-    "reviewCount": "100+",
-    "bestRating": "5",
-    "worstRating": "1"
-  },
-  "potentialAction": {
-    "@type": "ContactAction",
-    "name": "İletişime Geç",
-    "url": "https://yildizfatih.com/#contact",
-    "actionStatus": "PotentialActionStatus"
-  }
-};
 
-// Validate structured data
-try {
-  JSON.stringify(structuredData);
-} catch (error) {
-  console.error('Invalid structured data:', error);
-  // Fallback to minimal structured data
-  structuredData = {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "name": safeFrontmatter.title,
-    "url": metaUrl
-  };
-}
 ---
 
 <BaseLayout 
@@ -271,7 +172,96 @@ try {
       )}
       
       <!-- SEO Structured Data with Error Handling -->
-      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+      <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "CreativeWork",
+        "name": safeFrontmatter.title,
+        "description": safeFrontmatter.summary || safeFrontmatter.description,
+        "image": metaImage,
+        "url": metaUrl,
+        "datePublished": publishedTime,
+        "dateModified": modifiedTime,
+        "author": {
+          "@type": "Person",
+          "name": "Fatih Yıldız",
+          "url": "https://yildizfatih.com",
+          "jobTitle": "Profesyonel Grafik Tasarımcı",
+          "knowsAbout": safeTags.length > 0 ? safeTags : ["Grafik Tasarım", "Logo Tasarımı", "Kurumsal Kimlik"],
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Istanbul",
+            "addressCountry": "TR"
+          }
+        },
+        "creator": {
+          "@type": "Person",
+          "name": "Fatih Yıldız"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Fatih Yıldız Portfolio",
+          "url": "https://yildizfatih.com"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": metaUrl
+        },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Ana Sayfa",
+              "item": "https://yildizfatih.com"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Projeler",
+              "item": "https://yildizfatih.com/projects"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": safeFrontmatter.title,
+              "item": metaUrl
+            }
+          ]
+        },
+        "keywords": seoKeywords,
+        "genre": safeFrontmatter.category || "Grafik Tasarım",
+        "inLanguage": "tr-TR",
+        "isAccessibleForFree": true,
+        "license": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Profesyonel tasarım arayanlar, işletmeler, startup'lar"
+        },
+        "offers": {
+          "@type": "Offer",
+          "category": "Grafik Tasarım Hizmetleri",
+          "availability": "https://schema.org/InStock"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": 5,
+          "reviewCount": 100,
+          "bestRating": 5,
+          "worstRating": 1,
+          "itemReviewed": {
+            "@type": "CreativeWork",
+            "name": safeFrontmatter.title,
+            "url": metaUrl
+          }
+        },
+        "potentialAction": {
+          "@type": "ContactAction",
+          "name": "İletişime Geç",
+          "url": "https://yildizfatih.com/#contact",
+          "actionStatus": "PotentialActionStatus"
+        }
+      })} />
       
       <Nav />
       
