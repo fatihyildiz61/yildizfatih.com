@@ -57,6 +57,8 @@ ${projects.map(project => `  <url>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  
+  <!-- Not: contact-form-handler ve thank-you sayfaları noindex olduğu için sitemap'e eklenmedi -->
 </urlset>`;
 
   // Sitemap'i yaz

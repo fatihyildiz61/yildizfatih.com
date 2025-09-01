@@ -13,8 +13,16 @@ Crawl-delay: 1
 
 # Allow important directories
 Allow: /images/
-Allow: /public/
 Allow: /work/
 Allow: /projects/
 Allow: /privacy/
 Allow: /terms/
+Allow: /contact-form-handler/
+Allow: /thank-you/
+
+# Disallow unnecessary paths
+Disallow: /public/
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /scripts/
+Disallow: /dist/
