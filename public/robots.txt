@@ -17,6 +17,7 @@ Allow: /blog/
        Allow: /marka-kimligi/
        Allow: /sosyal-medya-tasarim/
        Allow: /baski-tasarim/
+       Allow: /hizmetlerim/
 Allow: /privacy/
 Allow: /terms/
 Allow: /contact-form-handler/

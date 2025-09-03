@@ -77,6 +77,13 @@ function generateSitemap() {
            <changefreq>monthly</changefreq>
            <priority>0.9</priority>
          </url>
+         
+         <url>
+           <loc>${baseUrl}/hizmetlerim/</loc>
+           <lastmod>${currentDate}</lastmod>
+           <changefreq>monthly</changefreq>
+           <priority>0.9</priority>
+         </url>
   
   <!-- Blog Ana Sayfası -->
   <url>
@@ -132,7 +139,7 @@ ${projects.map(project => `  <url>
   
   console.log(`✅ Sitemap güncellendi: ${projects.length} proje, ${blogPosts.length} blog yazısı bulundu`);
   console.log(` Sitemap konumu: ${sitemapPath}`);
-           console.log(`🔗 Toplam URL sayısı: ${5 + blogPosts.length + projects.length + 3} (ana sayfa + servisler + blog + projeler + yasal)`);
+           console.log(`🔗 Toplam URL sayısı: ${6 + blogPosts.length + projects.length + 3} (ana sayfa + servisler + blog + projeler + yasal)`);
 }
 
 // Script çalıştır
