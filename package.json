@@ -11,6 +11,7 @@
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "deploy": "npm run build:prod && git add . && git commit -m 'Auto-deploy' && git push",
     "test-ssl": "node scripts/ssl-test.js",
+    "seo-check": "node scripts/seo-check.cjs",
     "analyze": "npm run build:prod && npx bundle-analyzer dist/_astro/*.js",
     "lighthouse": "npx lighthouse https://www.yildizfatih.com --output=json --output-path=./lighthouse-report.json",
     "performance": "npm run build:prod && npm run lighthouse",

@@ -12,15 +12,14 @@ Allow: /images/
 Allow: /work/
 Allow: /projects/
 Allow: /blog/
-       Allow: /web-tasarim/
-       Allow: /logo-tasarim/
-       Allow: /marka-kimligi/
-       Allow: /sosyal-medya-tasarim/
-       Allow: /baski-tasarim/
-       Allow: /hizmetlerim/
+Allow: /web-tasarim/
+Allow: /logo-tasarim/
+Allow: /marka-kimligi/
+Allow: /sosyal-medya-tasarim/
+Allow: /baski-tasarim/
+Allow: /hizmetlerim/
 Allow: /privacy/
 Allow: /terms/
-Allow: /contact-form-handler/
 Allow: /thank-you/
 
 # Disallow unnecessary paths
@@ -29,6 +28,17 @@ Disallow: /src/
 Disallow: /node_modules/
 Disallow: /scripts/
 Disallow: /dist/
+
+# Disallow test and development files
+Disallow: /test-form.html
+Disallow: /test-php.php
+Disallow: /ultra-simple.php
+Disallow: /simple-test.php
+Disallow: /contact-form-handler/
+Disallow: /.DS_Store
+Disallow: /contact-handler.php
+Disallow: /contact-handler-natro.php
+Disallow: /simple-contact-handler.php
 
 # Explicitly allow search engines
 User-agent: Googlebot
