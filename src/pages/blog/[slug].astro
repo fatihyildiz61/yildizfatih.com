@@ -1,0 +1,272 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Nav from '../../components/Nav.astro';
+
+// Generate static paths for all blog posts
+export function getStaticPaths() {
+  const blogPosts = {
+    '2025-grafik-tasarim-trendleri': {
+      title: '2025\'te En Popüler Grafik Tasarım Trendleri',
+      excerpt: 'Bu yılın en çok konuşulan grafik tasarım trendlerini ve markaların nasıl bu trendleri kullandığını inceliyoruz.',
+      category: 'Tasarım Trendleri',
+      date: '2025-01-15',
+      readTime: '5 dk',
+      image: '/images/profile.jpg',
+      tags: ['grafik tasarım', 'trendler', '2025', 'tasarım'],
+      content: `
+        <h2>2025 Grafik Tasarım Trendleri</h2>
+        
+        <p>Grafik tasarım dünyası sürekli evrim geçiriyor ve 2025 yılında da yeni trendler öne çıkıyor. Bu yazıda, bu yılın en popüler grafik tasarım trendlerini ve markaların nasıl bu trendleri kullandığını inceleyeceğiz.</p>
+        
+        <h3>1. Minimalist Tasarım</h3>
+        <p>Minimalist tasarım yaklaşımı 2025'te de popülerliğini koruyor. Sade, temiz ve odaklanmış tasarımlar kullanıcıların dikkatini çekmeye devam ediyor. Bu trend özellikle <a href="/logo-tasarim" class="text-blue-600 dark:text-blue-400 hover:underline">logo tasarımında</a> ve <a href="/web-tasarim" class="text-blue-600 dark:text-blue-400 hover:underline">web arayüzlerinde</a> kendini gösteriyor.</p>
+        
+        <h3>2. Gradient ve Renk Geçişleri</h3>
+        <p>Gradient kullanımı grafik tasarımda güçlü bir trend olarak devam ediyor. Canlı renk geçişleri ve modern gradient efektleri tasarımlara derinlik katıyor.</p>
+        
+        <h3>3. 3D Tasarım Elementleri</h3>
+        <p>3D tasarım elementleri grafik tasarımda giderek daha popüler hale geliyor. Bu trend özellikle sosyal medya görsellerinde ve dijital reklamlarda kendini gösteriyor.</p>
+        
+        <h3>4. Hand-drawn ve Organik Şekiller</h3>
+        <p>El çizimi tarzındaki tasarımlar ve organik şekiller 2025'te öne çıkan trendler arasında. Bu yaklaşım tasarımlara daha insani ve samimi bir dokunuş katıyor.</p>
+        
+        <h3>5. Typography Odaklı Tasarımlar</h3>
+        <p>Tipografi odaklı tasarımlar grafik tasarımda güçlü bir trend olarak devam ediyor. Büyük, cesur yazı tipleri ve yaratıcı tipografi kullanımı dikkat çekiyor.</p>
+        
+        <h2>Sonuç</h2>
+        <p>2025 yılında grafik tasarım trendleri minimalizm, gradient kullanımı, 3D elementler, organik şekiller ve tipografi odaklı tasarımlar etrafında şekilleniyor. Bu trendleri takip ederek tasarımlarınızı güncel tutabilirsiniz.</p>
+      `
+    },
+    'logo-tasarim-fiyatlari-2025': {
+      title: 'Logo Tasarım Fiyatları 2025: Detaylı Rehber',
+      excerpt: 'Logo tasarım hizmetlerinin fiyatları nasıl belirlenir? 2025 yılında logo tasarım maliyetleri ve kalite faktörleri.',
+      category: 'Fiyat Rehberi',
+      date: '2025-01-10',
+      readTime: '7 dk',
+      image: '/images/profile.jpg',
+      tags: ['logo tasarım', 'fiyatlar', 'maliyet', 'rehber'],
+      content: `
+        <h2>Logo Tasarım Fiyatları 2025</h2>
+        
+        <p>Logo tasarım fiyatları birçok faktöre bağlı olarak değişiklik gösterir. Bu yazıda, 2025 yılında logo tasarım maliyetlerini ve fiyatları etkileyen faktörleri detaylı olarak inceleyeceğiz.</p>
+        
+        <h3>Logo Tasarım Fiyatlarını Etkileyen Faktörler</h3>
+        
+        <h4>1. Tasarımcının Deneyimi</h4>
+        <p>Deneyimli tasarımcılar genellikle daha yüksek fiyatlar talep eder. Bu, kaliteli hizmet ve profesyonel sonuçlar için normal bir durumdur.</p>
+        
+        <h4>2. Proje Kapsamı</h4>
+        <p>Logo tasarımının kapsamı fiyatı doğrudan etkiler. Sadece logo tasarımı mı yoksa tam marka kimliği paketi mi istediğiniz fiyatı belirler.</p>
+        
+        <h4>3. Revizyon Sayısı</h4>
+        <p>Revizyon hakkı sayısı fiyatı etkiler. Daha fazla revizyon hakkı genellikle daha yüksek maliyet anlamına gelir.</p>
+        
+        <h3>2025 Logo Tasarım Fiyat Aralıkları</h3>
+        
+        <ul>
+          <li><strong>Başlangıç Seviyesi:</strong> 500 - 1.500 TL</li>
+          <li><strong>Orta Seviye:</strong> 1.500 - 5.000 TL</li>
+          <li><strong>Profesyonel Seviye:</strong> 5.000 - 15.000 TL</li>
+          <li><strong>Premium Seviye:</strong> 15.000 TL+</li>
+        </ul>
+        
+        <h3>Kalite ve Fiyat İlişkisi</h3>
+        <p>Logo tasarımında kalite ve fiyat arasında doğrudan bir ilişki vardır. Düşük fiyatlı hizmetler genellikle düşük kaliteli sonuçlar verir.</p>
+        
+        <h2>Sonuç</h2>
+        <p>Logo tasarım fiyatları projenizin ihtiyaçlarına ve seçtiğiniz tasarımcının deneyimine göre değişir. Kaliteli bir logo için bütçenizi buna göre planlamanızı öneririm.</p>
+      `
+    }
+  };
+
+  return Object.keys(blogPosts).map(slug => ({
+    params: { slug },
+    props: { post: blogPosts[slug] }
+  }));
+}
+
+// Get the slug from the URL
+const { slug } = Astro.params;
+
+// Get the post data from props
+const { post } = Astro.props;
+
+// SEO data
+const seoData = {
+  title: `${post.title} | Fatih Yıldız Blog`,
+  description: post.excerpt,
+  keywords: post.tags.join(', '),
+  image: post.image
+};
+---
+
+<BaseLayout title={seoData.title} description={seoData.description} keywords={seoData.keywords}>
+  <!-- Enhanced Open Graph Meta Tags -->
+  <meta property="og:title" content={seoData.title} />
+  <meta property="og:description" content={seoData.description} />
+  <meta property="og:image" content={seoData.image} />
+  <meta property="og:url" content={`https://www.yildizfatih.com/blog/${slug}`} />
+  <meta property="og:type" content="article" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="Fatih Yıldız Portfolio" />
+  
+  <!-- Article specific meta tags -->
+  <meta property="article:published_time" content={post.date} />
+  <meta property="article:author" content="Fatih Yıldız" />
+  <meta property="article:section" content={post.category} />
+  {post.tags.map(tag => (
+    <meta property="article:tag" content={tag} />
+  ))}
+  
+  <!-- Enhanced Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={seoData.title} />
+  <meta name="twitter:description" content={seoData.description} />
+  <meta name="twitter:image" content={seoData.image} />
+  <meta name="twitter:image:alt" content={post.title} />
+  
+  <!-- Structured Data for Article -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.image,
+    "datePublished": post.date,
+    "author": {
+      "@type": "Person",
+      "name": "Fatih Yıldız",
+      "jobTitle": "Profesyonel Grafik Tasarımcı"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Fatih Yıldız Portfolio",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "/images/profile.jpg"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.yildizfatih.com/blog/${slug}`
+    }
+  })} />
+  
+  <Nav />
+  
+  <main class="min-h-screen">
+    <!-- Article Header -->
+    <section class="relative py-20 bg-slate-50 dark:bg-slate-900/50">
+      <div class="max-w-4xl mx-auto px-6">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-3 text-sm mb-8" aria-label="Breadcrumb">
+          <a href="/" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Ana Sayfa</a>
+          <span class="text-slate-400">/</span>
+          <a href="/blog" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Blog</a>
+          <span class="text-slate-400">/</span>
+          <span class="text-slate-900 dark:text-white font-medium">{post.title}</span>
+        </nav>
+        
+        <!-- Article Meta -->
+        <div class="mb-8">
+          <div class="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mb-4">
+            <time datetime={post.date}>{new Date(post.date).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+            <span>•</span>
+            <span>{post.readTime} okuma</span>
+            <span>•</span>
+            <span class="inline-flex items-center px-3 py-1 bg-blue-600 text-white text-sm font-medium rounded-full">
+              {post.category}
+            </span>
+          </div>
+        </div>
+        
+        <!-- Article Title -->
+        <h1 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+          {post.title}
+        </h1>
+        
+        <!-- Article Excerpt -->
+        <p class="text-xl text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+          {post.excerpt}
+        </p>
+        
+        <!-- Article Image -->
+        <div class="relative aspect-[16/9] rounded-2xl overflow-hidden mb-8">
+          <img 
+            src={post.image} 
+            alt={post.title}
+            class="w-full h-full object-cover"
+          />
+        </div>
+        
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 mb-8">
+          {post.tags.map((tag) => (
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-sm rounded-full">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Content -->
+    <section class="py-20 bg-white dark:bg-slate-900">
+      <div class="max-w-4xl mx-auto px-6">
+        <article class="prose prose-lg dark:prose-invert max-w-none">
+          <div set:html={post.content} />
+        </article>
+        
+        <!-- Author Bio -->
+        <div class="mt-16 p-8 bg-slate-50 dark:bg-slate-800 rounded-2xl">
+          <div class="flex items-start gap-6">
+            <img 
+              src="/images/profile.jpg" 
+              alt="Fatih Yıldız" 
+              class="w-16 h-16 rounded-full object-cover"
+            />
+            <div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Fatih Yıldız</h3>
+              <p class="text-slate-600 dark:text-slate-400 mb-4">
+                11+ yıl deneyimli profesyonel grafik tasarımcı. Logo tasarımı, marka kimliği, UI/UX tasarım ve sosyal medya tasarım konularında uzman.
+              </p>
+              <a href="/contact" class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-medium hover:gap-3 transition-all duration-300">
+                <span>İletişime Geç</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* Prose styles for article content */
+  .prose h2 {
+    @apply text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-bold text-slate-900 dark:text-white mt-6 mb-3;
+  }
+  
+  .prose h4 {
+    @apply text-lg font-bold text-slate-900 dark:text-white mt-4 mb-2;
+  }
+  
+  .prose p {
+    @apply text-slate-600 dark:text-slate-400 mb-4 leading-relaxed;
+  }
+  
+  .prose ul {
+    @apply list-disc list-inside text-slate-600 dark:text-slate-400 mb-4 space-y-2;
+  }
+  
+  .prose li {
+    @apply text-slate-600 dark:text-slate-400;
+  }
+</style>

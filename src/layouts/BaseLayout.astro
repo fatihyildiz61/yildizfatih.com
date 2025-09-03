@@ -136,7 +136,79 @@ const {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-YCD1Z7NNPZ');
+      gtag('config', 'G-YCD1Z7NNPZ', {
+        page_title: document.title,
+        page_location: window.location.href,
+        custom_map: {
+          'custom_dimension1': 'page_type',
+          'custom_dimension2': 'service_category'
+        }
+      });
+      
+      // Enhanced Analytics Events
+      document.addEventListener('DOMContentLoaded', function() {
+        // Track page views
+        gtag('event', 'page_view', {
+          page_title: document.title,
+          page_location: window.location.href
+        });
+        
+        // Track form submissions
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+          form.addEventListener('submit', function() {
+            gtag('event', 'form_submit', {
+              form_name: form.getAttribute('action') || 'contact_form',
+              page_location: window.location.href
+            });
+          });
+        });
+        
+        // Track outbound links
+        const links = document.querySelectorAll('a[href^="http"]');
+        links.forEach(link => {
+          link.addEventListener('click', function() {
+            gtag('event', 'click_external_link', {
+              link_url: link.href,
+              link_text: link.textContent
+            });
+          });
+        });
+      });
+    </script>
+    
+    <!-- Performance Monitoring -->
+    <script>
+      // Core Web Vitals monitoring
+      if ('PerformanceObserver' in window) {
+        const observer = new PerformanceObserver((list) => {
+          list.getEntries().forEach((entry) => {
+            if (entry.name === 'LCP') {
+              gtag('event', 'web_vitals', {
+                metric_name: 'LCP',
+                metric_value: entry.startTime,
+                metric_id: entry.id
+              });
+            }
+            if (entry.name === 'FID') {
+              gtag('event', 'web_vitals', {
+                metric_name: 'FID',
+                metric_value: entry.processingStart - entry.startTime,
+                metric_id: entry.id
+              });
+            }
+            if (entry.name === 'CLS') {
+              gtag('event', 'web_vitals', {
+                metric_name: 'CLS',
+                metric_value: entry.value,
+                metric_id: entry.id
+              });
+            }
+          });
+        });
+        
+        observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
+      }
     </script>
     
     <!-- ThemeProvider component -->

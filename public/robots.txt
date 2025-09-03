@@ -11,6 +11,10 @@ Crawl-delay: 1
 Allow: /images/
 Allow: /work/
 Allow: /projects/
+Allow: /blog/
+Allow: /web-tasarim/
+Allow: /logo-tasarim/
+Allow: /marka-kimligi/
 Allow: /privacy/
 Allow: /terms/
 Allow: /contact-form-handler/

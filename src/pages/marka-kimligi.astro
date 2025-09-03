@@ -1,0 +1,302 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+
+// SEO data for brand identity service
+const seoData = {
+  title: "İstanbul Marka Kimliği Tasarımı | Kurumsal Kimlik Paketi 2025 | Fatih Yıldız",
+  description: "İstanbul'da profesyonel marka kimliği tasarım hizmetleri. Logo, kurumsal kimlik, kartvizit, antetli kağıt tasarımı. Tam kapsamlı marka kimliği paketi. Ücretsiz danışmanlık.",
+  keywords: "İstanbul marka kimliği, kurumsal kimlik tasarımı, logo tasarım, kartvizit tasarımı, antetli kağıt, marka kimliği paketi, kurumsal kimlik tasarımcı"
+};
+---
+
+<BaseLayout title={seoData.title} description={seoData.description} keywords={seoData.keywords}>
+  <!-- Enhanced Open Graph Meta Tags -->
+  <meta property="og:title" content={seoData.title} />
+  <meta property="og:description" content={seoData.description} />
+  <meta property="og:image" content="/images/profile.jpg" />
+  <meta property="og:url" content="https://www.yildizfatih.com/marka-kimligi" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="Fatih Yıldız Portfolio" />
+  
+  <!-- Enhanced Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={seoData.title} />
+  <meta name="twitter:description" content={seoData.description} />
+  <meta name="twitter:image" content="/images/profile.jpg" />
+  <meta name="twitter:image:alt" content="İstanbul Marka Kimliği Tasarımı" />
+  
+  <!-- Structured Data for Service -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Marka Kimliği Tasarım Hizmetleri",
+    "description": seoData.description,
+    "provider": {
+      "@type": "Person",
+      "name": "Fatih Yıldız",
+      "jobTitle": "Profesyonel Grafik Tasarımcı",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Istanbul",
+        "addressCountry": "TR"
+      }
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Turkey"
+    },
+    "serviceType": "Brand Identity Design",
+    "url": "https://www.yildizfatih.com/marka-kimligi"
+  })} />
+  
+  <Nav />
+  
+  <main class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 -mt-32 pt-28 sm:pt-28 md:pt-28 lg:pt-28">
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"></div>
+      <div class="absolute inset-0 opacity-30 dark:opacity-20">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-blue-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl"></div>
+      </div>
+      
+      <!-- Breadcrumb -->
+      <div class="absolute top-8 left-6 z-20">
+        <nav class="flex items-center gap-3 text-sm" aria-label="Breadcrumb">
+          <a href="/" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Ana Sayfa</a>
+          <span class="text-slate-400">/</span>
+          <span class="text-slate-900 dark:text-white font-medium">Marka Kimliği</span>
+        </nav>
+      </div>
+      
+      <!-- Main content -->
+      <div class="relative z-10 text-center max-w-4xl mx-auto">
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 sm:mb-8">
+          <span class="block text-slate-900 dark:text-white">Profesyonel</span>
+          <span class="block text-slate-900 dark:text-white"><span class="text-blue-600 dark:text-blue-400">Marka Kimliği</span></span>
+          <span class="block text-slate-900 dark:text-white">Tasarımı</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed">
+          Markanızın tüm görsel kimlik öğelerini tutarlı ve profesyonel bir şekilde tasarlıyorum. Logo, kartvizit, antetli kağıt ve daha fazlası.
+        </p>
+        
+        <!-- CTA buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 sm:mb-10">
+          <a href="#contact" class="group relative px-8 sm:px-10 py-4 sm:py-5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl text-base sm:text-lg">
+            <span class="relative z-10">Ücretsiz Danışmanlık</span>
+          </a>
+          <a href="#services" class="px-8 sm:px-10 py-4 sm:py-5 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-300 text-base sm:text-lg">
+            Paketleri Gör
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-slate-50 dark:bg-slate-900/50">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            Marka Kimliği <span class="text-blue-600 dark:text-blue-400">Paketleri</span>
+          </h2>
+          <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            İhtiyaçlarınıza uygun marka kimliği paketleri sunuyorum
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Package 1 -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+            <div class="text-center mb-8">
+              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Başlangıç Paketi</h3>
+              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">₺2.500</div>
+              <p class="text-slate-600 dark:text-slate-400">Küçük işletmeler için</p>
+            </div>
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Logo tasarımı (3 konsept)
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Kartvizit tasarımı
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Antetli kağıt tasarımı
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Zarf tasarımı
+              </li>
+            </ul>
+            <a href="#contact" class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 text-center block">
+              Teklif Al
+            </a>
+          </div>
+
+          <!-- Package 2 -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border-2 border-blue-500 dark:border-blue-400 hover:shadow-xl transition-all duration-300 relative">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">Popüler</span>
+            </div>
+            <div class="text-center mb-8">
+              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Kurumsal Paket</h3>
+              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">₺5.000</div>
+              <p class="text-slate-600 dark:text-slate-400">Orta ölçekli şirketler için</p>
+            </div>
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Logo tasarımı (5 konsept)
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Kartvizit tasarımı
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Antetli kağıt tasarımı
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Zarf tasarımı
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Sosyal medya görselleri
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Marka kılavuzu
+              </li>
+            </ul>
+            <a href="#contact" class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 text-center block">
+              Teklif Al
+            </a>
+          </div>
+
+          <!-- Package 3 -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+            <div class="text-center mb-8">
+              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Premium Paket</h3>
+              <div class="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">₺10.000</div>
+              <p class="text-slate-600 dark:text-slate-400">Büyük şirketler için</p>
+            </div>
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Logo tasarımı (sınırsız konsept)
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Tüm kurumsal kimlik öğeleri
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Web sitesi tasarımı
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Detaylı marka kılavuzu
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                1 yıl destek
+              </li>
+            </ul>
+            <a href="#contact" class="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 text-center block">
+              Teklif Al
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white dark:bg-slate-900">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            Marka Kimliği <span class="text-blue-600 dark:text-blue-400">Projeniz</span>
+          </h2>
+          <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            Markanız için profesyonel kimlik tasarımı yapalım
+          </p>
+        </div>
+
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+          <form class="space-y-6" action="/contact-handler.php" method="POST">
+            <input type="hidden" name="_next" value="/thank-you" />
+            <input type="hidden" name="_subject" value="Marka Kimliği Projesi - Portfolio'dan" />
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Ad Soyad *</label>
+                <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+              </div>
+              
+              <div>
+                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">E-posta *</label>
+                <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+              </div>
+            </div>
+            
+            <div>
+              <label for="package" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">İlgilendiğiniz Paket *</label>
+              <select id="package" name="package" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <option value="">Seçiniz</option>
+                <option value="baslangic-paketi">Başlangıç Paketi (₺2.500)</option>
+                <option value="kurumsal-paket">Kurumsal Paket (₺5.000)</option>
+                <option value="premium-paket">Premium Paket (₺10.000)</option>
+                <option value="ozel-teklif">Özel Teklif</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Proje Detayları *</label>
+              <textarea id="message" name="message" rows="6" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" placeholder="Şirketiniz, sektörünüz ve marka kimliği beklentileriniz hakkında bilgi verin..."></textarea>
+            </div>
+            
+            <button type="submit" class="w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+              Ücretsiz Danışmanlık Al
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
