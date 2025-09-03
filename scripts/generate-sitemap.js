@@ -14,7 +14,7 @@ function getProjects() {
 // Sitemap XML oluştur
 function generateSitemap() {
   const projects = getProjects();
-  const baseUrl = 'https://yildizfatih.com';
+  const baseUrl = 'https://www.yildizfatih.com';
   const currentDate = new Date().toISOString().split('T')[0];
   
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
