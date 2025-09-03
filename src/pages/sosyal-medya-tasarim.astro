@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
 
 // SEO data for social media design service
 const seoData = {
@@ -64,11 +65,10 @@ const seoData = {
       
       <!-- Breadcrumb -->
       <div class="absolute top-8 left-6 z-20">
-        <nav class="flex items-center gap-3 text-sm" aria-label="Breadcrumb">
-          <a href="/" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Ana Sayfa</a>
-          <span class="text-slate-400">/</span>
-          <span class="text-slate-900 dark:text-white font-medium">Sosyal Medya Tasarım</span>
-        </nav>
+        <Breadcrumb items={[
+          { label: "Hizmetlerim", href: "/hizmetlerim" },
+          { label: "Sosyal Medya Tasarım", current: true }
+        ]} />
       </div>
       
       <!-- Main content -->
