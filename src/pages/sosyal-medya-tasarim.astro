@@ -1,0 +1,423 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+
+// SEO data for social media design service
+const seoData = {
+  title: "İstanbul Sosyal Medya Tasarım Hizmetleri | Profesyonel Sosyal Medya Görselleri 2025 | Fatih Yıldız",
+  description: "İstanbul'da profesyonel sosyal medya tasarım hizmetleri. Instagram, Facebook, LinkedIn için özel tasarımlar. Sosyal medya görselleri, story tasarımı, post tasarımı. Ücretsiz danışmanlık için iletişime geçin.",
+  keywords: "İstanbul sosyal medya tasarım, Instagram tasarım, Facebook tasarım, LinkedIn tasarım, sosyal medya görselleri, story tasarımı, post tasarımı, sosyal medya tasarımcı"
+};
+---
+
+<BaseLayout title={seoData.title} description={seoData.description} keywords={seoData.keywords}>
+  <!-- Enhanced Open Graph Meta Tags -->
+  <meta property="og:title" content={seoData.title} />
+  <meta property="og:description" content={seoData.description} />
+  <meta property="og:image" content="/images/profile.jpg" />
+  <meta property="og:url" content="https://www.yildizfatih.com/sosyal-medya-tasarim" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="tr_TR" />
+  <meta property="og:site_name" content="Fatih Yıldız Portfolio" />
+  
+  <!-- Enhanced Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={seoData.title} />
+  <meta name="twitter:description" content={seoData.description} />
+  <meta name="twitter:image" content="/images/profile.jpg" />
+  <meta name="twitter:image:alt" content="İstanbul Sosyal Medya Tasarım Hizmetleri" />
+  
+  <!-- Structured Data for Service -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Sosyal Medya Tasarım Hizmetleri",
+    "description": seoData.description,
+    "provider": {
+      "@type": "Person",
+      "name": "Fatih Yıldız",
+      "jobTitle": "Profesyonel Grafik Tasarımcı",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Istanbul",
+        "addressCountry": "TR"
+      }
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Turkey"
+    },
+    "serviceType": "Social Media Design",
+    "url": "https://www.yildizfatih.com/sosyal-medya-tasarim"
+  })} />
+  
+  <Nav />
+  
+  <main class="min-h-screen">
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center px-4 sm:px-6 -mt-32 pt-28 sm:pt-28 md:pt-28 lg:pt-28">
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"></div>
+      <div class="absolute inset-0 opacity-30 dark:opacity-20">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-pink-500/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-20 right-10 w-48 h-48 bg-purple-500/5 rounded-full blur-3xl"></div>
+      </div>
+      
+      <!-- Breadcrumb -->
+      <div class="absolute top-8 left-6 z-20">
+        <nav class="flex items-center gap-3 text-sm" aria-label="Breadcrumb">
+          <a href="/" class="text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300">Ana Sayfa</a>
+          <span class="text-slate-400">/</span>
+          <span class="text-slate-900 dark:text-white font-medium">Sosyal Medya Tasarım</span>
+        </nav>
+      </div>
+      
+      <!-- Main content -->
+      <div class="relative z-10 text-center max-w-4xl mx-auto">
+        <h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-6 sm:mb-8">
+          <span class="block text-slate-900 dark:text-white">Profesyonel</span>
+          <span class="block text-slate-900 dark:text-white"><span class="text-pink-600 dark:text-pink-400">Sosyal Medya</span></span>
+          <span class="block text-slate-900 dark:text-white">Tasarımı</span>
+        </h1>
+        
+        <p class="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-8 sm:mb-10 leading-relaxed">
+          Instagram, Facebook, LinkedIn ve diğer sosyal medya platformları için etkileyici görseller tasarlıyorum. Markanızı sosyal medyada öne çıkaracak tasarımlar oluşturuyorum. <a href="/blog/sosyal-medya-tasarim-ipuclari" class="text-blue-600 dark:text-blue-400 hover:underline">Sosyal medya tasarım ipuçları</a> için blog yazımızı okuyabilirsiniz.
+        </p>
+        
+        <!-- CTA buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 sm:mb-10">
+          <a href="#contact" class="group relative px-8 sm:px-10 py-4 sm:py-5 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-2xl text-base sm:text-lg">
+            <span class="relative z-10">Ücretsiz Danışmanlık</span>
+          </a>
+          <a href="#services" class="px-8 sm:px-10 py-4 sm:py-5 border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 font-semibold rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all duration-300 text-base sm:text-lg">
+            Hizmetlerimi Gör
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-slate-50 dark:bg-slate-900/50">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            Sosyal Medya <span class="text-pink-600 dark:text-pink-400">Tasarım Hizmetlerim</span>
+          </h2>
+          <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            Her platform için özel tasarlanmış sosyal medya görselleri
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service Card 1 -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+            <div class="w-16 h-16 bg-pink-100 dark:bg-pink-900/30 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-pink-600 dark:text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Instagram Tasarımı</h3>
+            <p class="text-slate-600 dark:text-slate-400 mb-6">
+              Instagram feed, story ve reels için etkileyici görseller tasarlıyorum.
+            </p>
+            <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Feed post tasarımı
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Story tasarımı
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Reels kapak tasarımı
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service Card 2 -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Facebook Tasarımı</h3>
+            <p class="text-slate-600 dark:text-slate-400 mb-6">
+              Facebook sayfanız için profesyonel görseller ve banner tasarımları.
+            </p>
+            <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Cover photo tasarımı
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Post görselleri
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Reklam görselleri
+              </li>
+            </ul>
+          </div>
+
+          <!-- Service Card 3 -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">LinkedIn Tasarımı</h3>
+            <p class="text-slate-600 dark:text-slate-400 mb-6">
+              LinkedIn için kurumsal ve profesyonel görseller tasarlıyorum.
+            </p>
+            <ul class="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Banner tasarımı
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Post görselleri
+              </li>
+              <li class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Company page tasarımı
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-20 bg-white dark:bg-slate-900">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            Sosyal Medya <span class="text-pink-600 dark:text-pink-400">Fiyat Paketleri</span>
+          </h2>
+          <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            İhtiyaçlarınıza uygun sosyal medya tasarım paketleri
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Package 1 -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+            <div class="text-center mb-8">
+              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Başlangıç Paketi</h3>
+              <div class="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-2">₺500</div>
+              <p class="text-slate-600 dark:text-slate-400">Aylık</p>
+            </div>
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                8 adet Instagram post
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                4 adet story tasarımı
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                2 adet Facebook post
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                1 adet LinkedIn post
+              </li>
+            </ul>
+            <a href="#contact" class="w-full px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 text-center block">
+              Teklif Al
+            </a>
+          </div>
+
+          <!-- Package 2 -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border-2 border-pink-500 dark:border-pink-400 hover:shadow-xl transition-all duration-300 relative">
+            <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+              <span class="bg-pink-600 text-white px-4 py-1 rounded-full text-sm font-medium">Popüler</span>
+            </div>
+            <div class="text-center mb-8">
+              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Profesyonel Paket</h3>
+              <div class="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-2">₺1.200</div>
+              <p class="text-slate-600 dark:text-slate-400">Aylık</p>
+            </div>
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                15 adet Instagram post
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                8 adet story tasarımı
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                6 adet Facebook post
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                4 adet LinkedIn post
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Reels kapak tasarımı
+              </li>
+            </ul>
+            <a href="#contact" class="w-full px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 text-center block">
+              Teklif Al
+            </a>
+          </div>
+
+          <!-- Package 3 -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all duration-300">
+            <div class="text-center mb-8">
+              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Premium Paket</h3>
+              <div class="text-3xl font-bold text-pink-600 dark:text-pink-400 mb-2">₺2.500</div>
+              <p class="text-slate-600 dark:text-slate-400">Aylık</p>
+            </div>
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Sınırsız Instagram post
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Sınırsız story tasarımı
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Tüm platformlar için tasarım
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Öncelikli destek
+              </li>
+              <li class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Sosyal medya stratejisi
+              </li>
+            </ul>
+            <a href="#contact" class="w-full px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 text-center block">
+              Teklif Al
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-slate-50 dark:bg-slate-900/50">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-16">
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+            Sosyal Medya <span class="text-pink-600 dark:text-pink-400">Tasarım Projeniz</span>
+          </h2>
+          <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            Sosyal medya görsellerinizi birlikte tasarlayalım
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+          <form class="space-y-6" action="/contact-handler.php" method="POST">
+            <input type="hidden" name="_next" value="/thank-you" />
+            <input type="hidden" name="_subject" value="Sosyal Medya Tasarım Projesi - Portfolio'dan" />
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Ad Soyad *</label>
+                <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent" />
+              </div>
+              
+              <div>
+                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">E-posta *</label>
+                <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent" />
+              </div>
+            </div>
+            
+            <div>
+              <label for="platform" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Hangi Platformlar *</label>
+              <select id="platform" name="platform" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+                <option value="">Seçiniz</option>
+                <option value="instagram">Instagram</option>
+                <option value="facebook">Facebook</option>
+                <option value="linkedin">LinkedIn</option>
+                <option value="twitter">Twitter</option>
+                <option value="tum-platformlar">Tüm Platformlar</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="package" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">İlgilendiğiniz Paket</label>
+              <select id="package" name="package" class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent">
+                <option value="">Seçiniz</option>
+                <option value="baslangic-paketi">Başlangıç Paketi (₺500/ay)</option>
+                <option value="profesyonel-paket">Profesyonel Paket (₺1.200/ay)</option>
+                <option value="premium-paket">Premium Paket (₺2.500/ay)</option>
+                <option value="ozel-teklif">Özel Teklif</option>
+              </select>
+            </div>
+            
+            <div>
+              <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Proje Detayları *</label>
+              <textarea id="message" name="message" rows="6" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-none" placeholder="Sosyal medya tasarım ihtiyaçlarınız hakkında bilgi verin..."></textarea>
+            </div>
+            
+            <button type="submit" class="w-full px-8 py-4 bg-pink-600 hover:bg-pink-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+              Ücretsiz Danışmanlık Al
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

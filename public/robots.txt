@@ -12,9 +12,11 @@ Allow: /images/
 Allow: /work/
 Allow: /projects/
 Allow: /blog/
-Allow: /web-tasarim/
-Allow: /logo-tasarim/
-Allow: /marka-kimligi/
+       Allow: /web-tasarim/
+       Allow: /logo-tasarim/
+       Allow: /marka-kimligi/
+       Allow: /sosyal-medya-tasarim/
+       Allow: /baski-tasarim/
 Allow: /privacy/
 Allow: /terms/
 Allow: /contact-form-handler/
