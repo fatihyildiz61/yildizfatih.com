@@ -6,7 +6,7 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   integrations: [tailwind(), mdx()],
   site: 'https://www.yildizfatih.com',
-  trailingSlash: 'always',
+  trailingSlash: 'never',
   
   // Build optimizasyonları
   build: {

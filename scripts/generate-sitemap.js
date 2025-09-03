@@ -44,42 +44,42 @@ function generateSitemap() {
   
            <!-- Servis Sayfaları -->
          <url>
-           <loc>${baseUrl}/web-tasarim/</loc>
+           <loc>${baseUrl}/web-tasarim</loc>
            <lastmod>${currentDate}</lastmod>
            <changefreq>monthly</changefreq>
            <priority>0.9</priority>
          </url>
          
          <url>
-           <loc>${baseUrl}/logo-tasarim/</loc>
+           <loc>${baseUrl}/logo-tasarim</loc>
            <lastmod>${currentDate}</lastmod>
            <changefreq>monthly</changefreq>
            <priority>0.9</priority>
          </url>
          
          <url>
-           <loc>${baseUrl}/marka-kimligi/</loc>
+           <loc>${baseUrl}/marka-kimligi</loc>
            <lastmod>${currentDate}</lastmod>
            <changefreq>monthly</changefreq>
            <priority>0.9</priority>
          </url>
          
          <url>
-           <loc>${baseUrl}/sosyal-medya-tasarim/</loc>
+           <loc>${baseUrl}/sosyal-medya-tasarim</loc>
            <lastmod>${currentDate}</lastmod>
            <changefreq>monthly</changefreq>
            <priority>0.9</priority>
          </url>
          
          <url>
-           <loc>${baseUrl}/baski-tasarim/</loc>
+           <loc>${baseUrl}/baski-tasarim</loc>
            <lastmod>${currentDate}</lastmod>
            <changefreq>monthly</changefreq>
            <priority>0.9</priority>
          </url>
          
          <url>
-           <loc>${baseUrl}/hizmetlerim/</loc>
+           <loc>${baseUrl}/hizmetlerim</loc>
            <lastmod>${currentDate}</lastmod>
            <changefreq>monthly</changefreq>
            <priority>0.9</priority>
@@ -87,7 +87,7 @@ function generateSitemap() {
   
   <!-- Blog Ana Sayfası -->
   <url>
-    <loc>${baseUrl}/blog/</loc>
+    <loc>${baseUrl}/blog</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -95,7 +95,7 @@ function generateSitemap() {
   
   <!-- Blog Yazıları -->
 ${blogPosts.map(post => `  <url>
-    <loc>${baseUrl}/blog/${post}/</loc>
+    <loc>${baseUrl}/blog/${post}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -103,7 +103,7 @@ ${blogPosts.map(post => `  <url>
   
   <!-- Projeler Ana Sayfası -->
   <url>
-    <loc>${baseUrl}/projects/</loc>
+    <loc>${baseUrl}/projects</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -111,7 +111,7 @@ ${blogPosts.map(post => `  <url>
   
   <!-- Proje Sayfaları -->
 ${projects.map(project => `  <url>
-    <loc>${baseUrl}/work/${project}/</loc>
+    <loc>${baseUrl}/work/${project}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -119,14 +119,14 @@ ${projects.map(project => `  <url>
   
   <!-- Yasal Sayfalar -->
   <url>
-    <loc>${baseUrl}/privacy/</loc>
+    <loc>${baseUrl}/privacy</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
   <url>
-    <loc>${baseUrl}/terms/</loc>
+    <loc>${baseUrl}/terms</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
