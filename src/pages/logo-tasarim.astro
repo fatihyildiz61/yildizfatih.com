@@ -276,7 +276,7 @@ const seoData = {
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
-          <form class="space-y-6" action="/contact-handler.php" method="POST">
+          <form class="space-y-6" action="/contact-handler.php" method="POST" id="logoContactForm">
             <input type="hidden" name="_next" value="/thank-you" />
             <input type="hidden" name="_subject" value="Logo Tasarım Projesi - Portfolio'dan" />
             
@@ -325,12 +325,109 @@ const seoData = {
               <textarea id="message" name="message" rows="6" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" placeholder="Markanız, sektörünüz ve logo beklentileriniz hakkında bilgi verin..."></textarea>
             </div>
             
-            <button type="submit" class="w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-              Ücretsiz Danışmanlık Al
+            <button type="submit" id="logoSubmitBtn" class="w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+              <span id="logoSubmitText">Ücretsiz Danışmanlık Al</span>
+              <span id="logoLoadingText" class="hidden">Gönderiliyor...</span>
             </button>
           </form>
+          
+          <!-- Form Status Messages -->
+          <div id="logoFormStatus" class="hidden mt-4 p-4 rounded-lg">
+            <div id="logoSuccessMessage" class="hidden text-green-700 bg-green-100 border border-green-200 rounded-lg p-4">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="font-medium">Mesajınız başarıyla gönderildi!</span>
+              </div>
+            </div>
+            <div id="logoErrorMessage" class="hidden text-red-700 bg-red-100 border border-red-200 rounded-lg p-4">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+                <span id="logoErrorText" class="font-medium">Bir hata oluştu. Lütfen tekrar deneyin.</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 </BaseLayout>
+
+<script>
+  // Logo Contact Form Handler
+  document.addEventListener('DOMContentLoaded', function() {
+    const logoContactForm = document.getElementById('logoContactForm');
+    const logoSubmitBtn = document.getElementById('logoSubmitBtn');
+    const logoSubmitText = document.getElementById('logoSubmitText');
+    const logoLoadingText = document.getElementById('logoLoadingText');
+    const logoFormStatus = document.getElementById('logoFormStatus');
+    const logoSuccessMessage = document.getElementById('logoSuccessMessage');
+    const logoErrorMessage = document.getElementById('logoErrorMessage');
+    const logoErrorText = document.getElementById('logoErrorText');
+    
+    if (logoContactForm) {
+      logoContactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Form verilerini al
+        const formData = new FormData(logoContactForm);
+        
+        // Loading state'i göster
+        logoSubmitBtn.disabled = true;
+        logoSubmitText.classList.add('hidden');
+        logoLoadingText.classList.remove('hidden');
+        
+        // Status mesajlarını gizle
+        logoFormStatus.classList.add('hidden');
+        logoSuccessMessage.classList.add('hidden');
+        logoErrorMessage.classList.add('hidden');
+        
+        try {
+          // Form verilerini gönder
+          const response = await fetch('/contact-handler.php', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            // Başarılı
+            logoSuccessMessage.classList.remove('hidden');
+            logoFormStatus.classList.remove('hidden');
+            logoContactForm.reset();
+            
+            // Redirect URL varsa hemen yönlendir, yoksa 3 saniye bekle
+            if (result.redirect) {
+              setTimeout(() => {
+                window.location.href = result.redirect;
+              }, 2000);
+            } else {
+              setTimeout(() => {
+                window.location.href = '/thank-you';
+              }, 3000);
+            }
+          } else {
+            // Hata
+            logoErrorText.textContent = result.error || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+            logoErrorMessage.classList.remove('hidden');
+            logoFormStatus.classList.remove('hidden');
+          }
+        } catch (error) {
+          // Network hatası
+          logoErrorText.textContent = 'Bağlantı hatası. Lütfen tekrar deneyin.';
+          logoErrorMessage.classList.remove('hidden');
+          logoFormStatus.classList.remove('hidden');
+        } finally {
+          // Loading state'i kaldır
+          logoSubmitBtn.disabled = false;
+          logoSubmitText.classList.remove('hidden');
+          logoLoadingText.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>

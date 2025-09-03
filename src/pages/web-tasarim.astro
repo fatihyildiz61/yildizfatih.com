@@ -276,7 +276,7 @@ const seoData = {
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
-          <form class="space-y-6" action="/contact-handler.php" method="POST">
+          <form class="space-y-6" action="/contact-handler.php" method="POST" id="webContactForm">
             <input type="hidden" name="_next" value="/thank-you" />
             <input type="hidden" name="_subject" value="Web Tasarım Projesi - Portfolio'dan" />
             
@@ -325,12 +325,109 @@ const seoData = {
               <textarea id="message" name="message" rows="6" required class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" placeholder="Projeniz hakkında detayları paylaşın..."></textarea>
             </div>
             
-            <button type="submit" class="w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-              Ücretsiz Danışmanlık Al
+            <button type="submit" id="webSubmitBtn" class="w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+              <span id="webSubmitText">Ücretsiz Danışmanlık Al</span>
+              <span id="webLoadingText" class="hidden">Gönderiliyor...</span>
             </button>
           </form>
+          
+          <!-- Form Status Messages -->
+          <div id="webFormStatus" class="hidden mt-4 p-4 rounded-lg">
+            <div id="webSuccessMessage" class="hidden text-green-700 bg-green-100 border border-green-200 rounded-lg p-4">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                <span class="font-medium">Mesajınız başarıyla gönderildi!</span>
+              </div>
+            </div>
+            <div id="webErrorMessage" class="hidden text-red-700 bg-red-100 border border-red-200 rounded-lg p-4">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+                <span id="webErrorText" class="font-medium">Bir hata oluştu. Lütfen tekrar deneyin.</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
 </BaseLayout>
+
+<script>
+  // Web Contact Form Handler
+  document.addEventListener('DOMContentLoaded', function() {
+    const webContactForm = document.getElementById('webContactForm');
+    const webSubmitBtn = document.getElementById('webSubmitBtn');
+    const webSubmitText = document.getElementById('webSubmitText');
+    const webLoadingText = document.getElementById('webLoadingText');
+    const webFormStatus = document.getElementById('webFormStatus');
+    const webSuccessMessage = document.getElementById('webSuccessMessage');
+    const webErrorMessage = document.getElementById('webErrorMessage');
+    const webErrorText = document.getElementById('webErrorText');
+    
+    if (webContactForm) {
+      webContactForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Form verilerini al
+        const formData = new FormData(webContactForm);
+        
+        // Loading state'i göster
+        webSubmitBtn.disabled = true;
+        webSubmitText.classList.add('hidden');
+        webLoadingText.classList.remove('hidden');
+        
+        // Status mesajlarını gizle
+        webFormStatus.classList.add('hidden');
+        webSuccessMessage.classList.add('hidden');
+        webErrorMessage.classList.add('hidden');
+        
+        try {
+          // Form verilerini gönder
+          const response = await fetch('/contact-handler.php', {
+            method: 'POST',
+            body: formData
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            // Başarılı
+            webSuccessMessage.classList.remove('hidden');
+            webFormStatus.classList.remove('hidden');
+            webContactForm.reset();
+            
+            // Redirect URL varsa hemen yönlendir, yoksa 3 saniye bekle
+            if (result.redirect) {
+              setTimeout(() => {
+                window.location.href = result.redirect;
+              }, 2000);
+            } else {
+              setTimeout(() => {
+                window.location.href = '/thank-you';
+              }, 3000);
+            }
+          } else {
+            // Hata
+            webErrorText.textContent = result.error || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+            webErrorMessage.classList.remove('hidden');
+            webFormStatus.classList.remove('hidden');
+          }
+        } catch (error) {
+          // Network hatası
+          webErrorText.textContent = 'Bağlantı hatası. Lütfen tekrar deneyin.';
+          webErrorMessage.classList.remove('hidden');
+          webFormStatus.classList.remove('hidden');
+        } finally {
+          // Loading state'i kaldır
+          webSubmitBtn.disabled = false;
+          webSubmitText.classList.remove('hidden');
+          webLoadingText.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>

@@ -146,8 +146,12 @@ try {
         // Rate limiting güncelle
         $_SESSION['last_form_submit'] = $current_time;
         
-        // Başarılı mesajı döndür
-        echo json_encode(['success' => true, 'message' => 'Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım.']);
+        // Başarılı mesajı döndür ve redirect URL'i ekle
+        echo json_encode([
+            'success' => true, 
+            'message' => 'Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım.',
+            'redirect' => '/thank-you'
+        ]);
         
     } catch (Exception $e) {
         // Mail gönderim hatası
