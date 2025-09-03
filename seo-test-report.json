@@ -1,0 +1,458 @@
+[
+  {
+    "url": "https://www.yildizfatih.com/",
+    "status": 200,
+    "tests": {
+      "title": {
+        "passed": false,
+        "title": "İstanbul Profesyonel Grafik Tasarımcı | Logo &amp; Marka Kimliği Tasarımı 2025 | Fatih Yıldız",
+        "length": 93,
+        "message": "Title too long"
+      },
+      "description": {
+        "passed": false,
+        "description": "İstanbul",
+        "length": 8,
+        "message": "Description too short"
+      },
+      "h1": {
+        "passed": false,
+        "message": "No H1 tags found"
+      },
+      "images": {
+        "passed": true,
+        "total": 9,
+        "withoutAlt": 0,
+        "message": "All images have alt text"
+      },
+      "links": {
+        "passed": true,
+        "total": 49,
+        "internal": 0,
+        "external": 49,
+        "message": "Found 49 links (0 internal, 49 external)"
+      },
+      "structuredData": {
+        "passed": true,
+        "count": 1,
+        "message": "Found 1 structured data blocks"
+      },
+      "performance": {
+        "passed": true,
+        "loadTime": "28ms",
+        "message": "Excellent"
+      },
+      "mobile": {
+        "passed": true,
+        "hasViewport": true,
+        "hasResponsiveCSS": true,
+        "message": "Mobile friendly"
+      },
+      "ssl": {
+        "passed": true,
+        "protocol": "HTTPS",
+        "message": "SSL enabled"
+      },
+      "robots": {}
+    }
+  },
+  {
+    "url": "https://www.yildizfatih.com/logo-tasarim",
+    "status": 200,
+    "tests": {
+      "title": {
+        "passed": false,
+        "title": "İstanbul Logo Tasarım Hizmetleri | Profesyonel Logo Tasarımı 2025 | Fatih Yıldız",
+        "length": 80,
+        "message": "Title too long"
+      },
+      "description": {
+        "passed": false,
+        "description": "İstanbul",
+        "length": 8,
+        "message": "Description too short"
+      },
+      "h1": {
+        "passed": false,
+        "message": "No H1 tags found"
+      },
+      "images": {
+        "passed": true,
+        "total": 2,
+        "withoutAlt": 0,
+        "message": "All images have alt text"
+      },
+      "links": {
+        "passed": true,
+        "total": 31,
+        "internal": 0,
+        "external": 31,
+        "message": "Found 31 links (0 internal, 31 external)"
+      },
+      "structuredData": {
+        "passed": true,
+        "count": 1,
+        "message": "Found 1 structured data blocks"
+      },
+      "performance": {
+        "passed": true,
+        "loadTime": "47ms",
+        "message": "Excellent"
+      },
+      "mobile": {
+        "passed": false,
+        "hasViewport": true,
+        "hasResponsiveCSS": false,
+        "message": "Mobile optimization needed"
+      },
+      "ssl": {
+        "passed": true,
+        "protocol": "HTTPS",
+        "message": "SSL enabled"
+      },
+      "robots": {}
+    }
+  },
+  {
+    "url": "https://www.yildizfatih.com/marka-kimligi",
+    "status": 200,
+    "tests": {
+      "title": {
+        "passed": false,
+        "title": "İstanbul Marka Kimliği Tasarımı | Kurumsal Kimlik Paketi 2025 | Fatih Yıldız",
+        "length": 76,
+        "message": "Title too long"
+      },
+      "description": {
+        "passed": false,
+        "description": "İstanbul",
+        "length": 8,
+        "message": "Description too short"
+      },
+      "h1": {
+        "passed": false,
+        "message": "No H1 tags found"
+      },
+      "images": {
+        "passed": true,
+        "total": 2,
+        "withoutAlt": 0,
+        "message": "All images have alt text"
+      },
+      "links": {
+        "passed": true,
+        "total": 34,
+        "internal": 0,
+        "external": 34,
+        "message": "Found 34 links (0 internal, 34 external)"
+      },
+      "structuredData": {
+        "passed": true,
+        "count": 1,
+        "message": "Found 1 structured data blocks"
+      },
+      "performance": {
+        "passed": true,
+        "loadTime": "45ms",
+        "message": "Excellent"
+      },
+      "mobile": {
+        "passed": false,
+        "hasViewport": true,
+        "hasResponsiveCSS": false,
+        "message": "Mobile optimization needed"
+      },
+      "ssl": {
+        "passed": true,
+        "protocol": "HTTPS",
+        "message": "SSL enabled"
+      },
+      "robots": {}
+    }
+  },
+  {
+    "url": "https://www.yildizfatih.com/web-tasarim",
+    "status": 200,
+    "tests": {
+      "title": {
+        "passed": false,
+        "title": "İstanbul Web Tasarım Hizmetleri | Profesyonel Web Sitesi Tasarımı 2025 | Fatih Yıldız",
+        "length": 85,
+        "message": "Title too long"
+      },
+      "description": {
+        "passed": false,
+        "description": "İstanbul",
+        "length": 8,
+        "message": "Description too short"
+      },
+      "h1": {
+        "passed": false,
+        "message": "No H1 tags found"
+      },
+      "images": {
+        "passed": true,
+        "total": 2,
+        "withoutAlt": 0,
+        "message": "All images have alt text"
+      },
+      "links": {
+        "passed": true,
+        "total": 32,
+        "internal": 0,
+        "external": 32,
+        "message": "Found 32 links (0 internal, 32 external)"
+      },
+      "structuredData": {
+        "passed": true,
+        "count": 1,
+        "message": "Found 1 structured data blocks"
+      },
+      "performance": {
+        "passed": true,
+        "loadTime": "49ms",
+        "message": "Excellent"
+      },
+      "mobile": {
+        "passed": true,
+        "hasViewport": true,
+        "hasResponsiveCSS": true,
+        "message": "Mobile friendly"
+      },
+      "ssl": {
+        "passed": true,
+        "protocol": "HTTPS",
+        "message": "SSL enabled"
+      },
+      "robots": {}
+    }
+  },
+  {
+    "url": "https://www.yildizfatih.com/sosyal-medya-tasarim",
+    "status": 200,
+    "tests": {
+      "title": {
+        "passed": false,
+        "title": "İstanbul Sosyal Medya Tasarım Hizmetleri | Profesyonel Sosyal Medya Görselleri 2025 | Fatih Yıldız",
+        "length": 98,
+        "message": "Title too long"
+      },
+      "description": {
+        "passed": false,
+        "description": "İstanbul",
+        "length": 8,
+        "message": "Description too short"
+      },
+      "h1": {
+        "passed": false,
+        "message": "No H1 tags found"
+      },
+      "images": {
+        "passed": true,
+        "total": 2,
+        "withoutAlt": 0,
+        "message": "All images have alt text"
+      },
+      "links": {
+        "passed": true,
+        "total": 32,
+        "internal": 0,
+        "external": 32,
+        "message": "Found 32 links (0 internal, 32 external)"
+      },
+      "structuredData": {
+        "passed": true,
+        "count": 1,
+        "message": "Found 1 structured data blocks"
+      },
+      "performance": {
+        "passed": true,
+        "loadTime": "49ms",
+        "message": "Excellent"
+      },
+      "mobile": {
+        "passed": false,
+        "hasViewport": true,
+        "hasResponsiveCSS": false,
+        "message": "Mobile optimization needed"
+      },
+      "ssl": {
+        "passed": true,
+        "protocol": "HTTPS",
+        "message": "SSL enabled"
+      },
+      "robots": {}
+    }
+  },
+  {
+    "url": "https://www.yildizfatih.com/baski-tasarim",
+    "status": 200,
+    "tests": {
+      "title": {
+        "passed": false,
+        "title": "İstanbul Baskı Tasarım Hizmetleri | Profesyonel Baskı Tasarımı 2025 | Fatih Yıldız",
+        "length": 82,
+        "message": "Title too long"
+      },
+      "description": {
+        "passed": false,
+        "description": "İstanbul",
+        "length": 8,
+        "message": "Description too short"
+      },
+      "h1": {
+        "passed": false,
+        "message": "No H1 tags found"
+      },
+      "images": {
+        "passed": true,
+        "total": 2,
+        "withoutAlt": 0,
+        "message": "All images have alt text"
+      },
+      "links": {
+        "passed": true,
+        "total": 32,
+        "internal": 0,
+        "external": 32,
+        "message": "Found 32 links (0 internal, 32 external)"
+      },
+      "structuredData": {
+        "passed": true,
+        "count": 1,
+        "message": "Found 1 structured data blocks"
+      },
+      "performance": {
+        "passed": true,
+        "loadTime": "47ms",
+        "message": "Excellent"
+      },
+      "mobile": {
+        "passed": false,
+        "hasViewport": true,
+        "hasResponsiveCSS": false,
+        "message": "Mobile optimization needed"
+      },
+      "ssl": {
+        "passed": true,
+        "protocol": "HTTPS",
+        "message": "SSL enabled"
+      },
+      "robots": {}
+    }
+  },
+  {
+    "url": "https://www.yildizfatih.com/blog",
+    "status": 200,
+    "tests": {
+      "title": {
+        "passed": false,
+        "title": "Grafik Tasarım Blog | Tasarım Trendleri, İpuçları ve Rehberler | Fatih Yıldız",
+        "length": 77,
+        "message": "Title too long"
+      },
+      "description": {
+        "passed": true,
+        "description": "Grafik tasarım dünyasından en güncel trendler, tasarım ipuçları, logo tasarım rehberleri ve marka kimliği konularında uzman görüşleri.",
+        "length": 134,
+        "message": "Description length OK"
+      },
+      "h1": {
+        "passed": false,
+        "message": "No H1 tags found"
+      },
+      "images": {
+        "passed": true,
+        "total": 8,
+        "withoutAlt": 0,
+        "message": "All images have alt text"
+      },
+      "links": {
+        "passed": true,
+        "total": 42,
+        "internal": 0,
+        "external": 42,
+        "message": "Found 42 links (0 internal, 42 external)"
+      },
+      "structuredData": {
+        "passed": true,
+        "count": 1,
+        "message": "Found 1 structured data blocks"
+      },
+      "performance": {
+        "passed": true,
+        "loadTime": "46ms",
+        "message": "Excellent"
+      },
+      "mobile": {
+        "passed": false,
+        "hasViewport": true,
+        "hasResponsiveCSS": false,
+        "message": "Mobile optimization needed"
+      },
+      "ssl": {
+        "passed": true,
+        "protocol": "HTTPS",
+        "message": "SSL enabled"
+      },
+      "robots": {}
+    }
+  },
+  {
+    "url": "https://www.yildizfatih.com/projects",
+    "status": 200,
+    "tests": {
+      "title": {
+        "passed": true,
+        "title": "Tüm Projeler - Fatih Yıldız Portfolio",
+        "length": 37,
+        "message": "Title length OK"
+      },
+      "description": {
+        "passed": false,
+        "description": "Fatih Yıldız",
+        "length": 12,
+        "message": "Description too short"
+      },
+      "h1": {
+        "passed": false,
+        "message": "No H1 tags found"
+      },
+      "images": {
+        "passed": true,
+        "total": 10,
+        "withoutAlt": 0,
+        "message": "All images have alt text"
+      },
+      "links": {
+        "passed": true,
+        "total": 40,
+        "internal": 0,
+        "external": 40,
+        "message": "Found 40 links (0 internal, 40 external)"
+      },
+      "structuredData": {
+        "passed": true,
+        "count": 1,
+        "message": "Found 1 structured data blocks"
+      },
+      "performance": {
+        "passed": true,
+        "loadTime": "45ms",
+        "message": "Excellent"
+      },
+      "mobile": {
+        "passed": true,
+        "hasViewport": true,
+        "hasResponsiveCSS": true,
+        "message": "Mobile friendly"
+      },
+      "ssl": {
+        "passed": true,
+        "protocol": "HTTPS",
+        "message": "SSL enabled"
+      },
+      "robots": {}
+    }
+  }
+]
