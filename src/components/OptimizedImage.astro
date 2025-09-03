@@ -1,0 +1,49 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  sizes?: string;
+  priority?: boolean;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className = '',
+  loading = 'lazy',
+  decoding = 'async',
+  sizes = '100vw',
+  priority = false
+} = Astro.props;
+
+// Image optimization
+const isExternal = src.startsWith('http');
+const optimizedSrc = isExternal ? src : src;
+const imageClass = `w-full h-auto object-cover ${className}`;
+
+// Preload for priority images
+const preload = priority ? `<link rel="preload" as="image" href="${optimizedSrc}">` : '';
+---
+
+{preload && <Fragment set:html={preload} />}
+
+<img
+  src={optimizedSrc}
+  alt={alt}
+  width={width}
+  height={height}
+  class={imageClass}
+  loading={priority ? 'eager' : loading}
+  decoding={decoding}
+  sizes={sizes}
+  fetchpriority={priority ? 'high' : 'auto'}
+  onload="this.style.opacity='1'"
+  style="opacity: 0; transition: opacity 0.3s ease-in-out;"
+/>

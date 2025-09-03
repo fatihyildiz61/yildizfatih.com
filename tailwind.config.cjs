@@ -11,6 +11,14 @@ module.exports = {
       accessibility: true
     },
     
+    // Performance optimizations
+    future: {
+      hoverOnlyWhenSupported: true,
+      respectDefaultRingColor: true
+    },
+    
+
+    
     theme: {
       extend: {
         colors: {
@@ -51,15 +59,34 @@ module.exports = {
           'slide-up': 'slideUp 1s cubic-bezier(0.4, 0, 0.2, 1)',
           'slide-down': 'slideDown 1s cubic-bezier(0.4, 0, 0.2, 1)',
           'scale-in': 'scaleIn 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+        },
+        // Performance optimizations
+        screens: {
+          'xs': '475px',
+        },
+        spacing: {
+          '18': '4.5rem',
+          '88': '22rem',
         }
       }
     },
     
-    // CSS optimizasyonları
-    future: {
-      hoverOnlyWhenSupported: true,
-      respectDefaultRingColor: true
-    },
-    
-    plugins: [require('@tailwindcss/typography')]
+    plugins: [
+      require('@tailwindcss/typography'),
+      // Custom performance plugin
+      function({ addUtilities, theme }) {
+        const newUtilities = {
+          '.will-change-auto': { 'will-change': 'auto' },
+          '.will-change-scroll': { 'will-change': 'scroll-position' },
+          '.will-change-contents': { 'will-change': 'contents' },
+          '.will-change-transform': { 'will-change': 'transform' },
+          '.contain-layout': { 'contain': 'layout' },
+          '.contain-style': { 'contain': 'style' },
+          '.contain-paint': { 'contain': 'paint' },
+          '.contain-size': { 'contain': 'size' },
+          '.contain-strict': { 'contain': 'strict' },
+        }
+        addUtilities(newUtilities)
+      }
+    ]
   };

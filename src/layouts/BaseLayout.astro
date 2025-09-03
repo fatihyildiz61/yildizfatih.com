@@ -116,15 +116,19 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
-    <!-- Google Fonts - Optimized loading -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" as="style">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <!-- Google Fonts - Optimized loading with display=swap -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     </noscript>
     
-    <!-- Font Awesome Icons - Local -->
-    <link rel="stylesheet" href="/fonts/css/all.min.css">
+    <!-- Font Awesome Icons - Local with preload -->
+    <link rel="preload" href="/fonts/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+      <link rel="stylesheet" href="/fonts/css/all.min.css">
+    </noscript>
+    
+
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-YCD1Z7NNPZ"></script>
@@ -138,8 +142,9 @@ const {
     <!-- ThemeProvider component -->
     <ThemeProvider />
     
-    <!-- Prevent flash of unstyled content - Enhanced -->
+    <!-- Critical CSS for initial render -->
     <style is:inline>
+      /* Prevent FOUC (Flash of Unstyled Content) */
       html { 
         visibility: hidden; 
         font-display: swap;
@@ -151,6 +156,9 @@ const {
       /* Critical CSS for initial render */
       body {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.6;
       }
       
       /* Font loading optimization */
@@ -158,7 +166,32 @@ const {
         font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       }
       
-
+      /* Critical layout styles */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      
+      /* Critical button styles */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      
+      /* Critical navigation styles */
+      .nav {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 50;
+        backdrop-filter: blur(8px);
+      }
     </style>
     
     <script is:inline>
