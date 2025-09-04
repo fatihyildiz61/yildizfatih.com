@@ -39,7 +39,7 @@
       },
       "performance": {
         "passed": true,
-        "loadTime": "28ms",
+        "loadTime": "27ms",
         "message": "Excellent"
       },
       "mobile": {
@@ -96,7 +96,7 @@
       },
       "performance": {
         "passed": true,
-        "loadTime": "47ms",
+        "loadTime": "73ms",
         "message": "Excellent"
       },
       "mobile": {
@@ -153,7 +153,7 @@
       },
       "performance": {
         "passed": true,
-        "loadTime": "45ms",
+        "loadTime": "48ms",
         "message": "Excellent"
       },
       "mobile": {
@@ -210,7 +210,7 @@
       },
       "performance": {
         "passed": true,
-        "loadTime": "49ms",
+        "loadTime": "50ms",
         "message": "Excellent"
       },
       "mobile": {
@@ -267,7 +267,7 @@
       },
       "performance": {
         "passed": true,
-        "loadTime": "49ms",
+        "loadTime": "46ms",
         "message": "Excellent"
       },
       "mobile": {
@@ -324,7 +324,7 @@
       },
       "performance": {
         "passed": true,
-        "loadTime": "47ms",
+        "loadTime": "48ms",
         "message": "Excellent"
       },
       "mobile": {
@@ -381,7 +381,7 @@
       },
       "performance": {
         "passed": true,
-        "loadTime": "46ms",
+        "loadTime": "47ms",
         "message": "Excellent"
       },
       "mobile": {
@@ -438,7 +438,7 @@
       },
       "performance": {
         "passed": true,
-        "loadTime": "45ms",
+        "loadTime": "46ms",
         "message": "Excellent"
       },
       "mobile": {
